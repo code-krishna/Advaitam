@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nita.ac.advaitam4.History"
+    android:weightSum="1">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="217dp"
+        app:srcCompat="@drawable/advaitam_image_1" />
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:paddingTop="2dp"
+        android:text="History"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+</android.support.v7.widget.CardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="4dp"
+            android:paddingTop="4dp"
+            android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta, ligula vel interdum tempus, ipsum mi rhoncus erat, et feugiat quam velit ac libero. Integer rhoncus lacus sed leo commodo interdum. Morbi a consectetur turpis. Aenean iaculis, lectus sit amet ornare luctus, nunc turpis venenatis est, vitae congue sem magna at tellus. Proin at hendrerit massa. Nunc vel varius nisl, a sagittis leo. Aliquam erat volutpat. Nam non massa ante. Proin faucibus urna ligula, semper gravida urna finibus id. Ut laoreet, nisl sed blandit ultrices, quam neque cursus lectus, ut convallis dolor sem eget lacus. In volutpat libero a magna pharetra, a faucibus ex rhoncus.  Praesent vitae purus quam. Maecenas laoreet lacinia metus, vel egestas lorem faucibus vitae. Suspendisse nibh lacus, placerat et finibus quis, porta a sapien. Etiam scelerisque sapien dictum urna vestibulum, finibus tincidunt ex facilisis. Curabitur imperdiet ullamcorper molestie. Maecenas mattis sem eu accumsan scelerisque. Nulla at sagittis est, quis viverra ligula. Nulla aliquam dignissim nunc, sit amet dictum erat ultricies sit amet.  Suspendisse a ipsum ac turpis malesuada euismod. Phasellus porta arcu convallis sem convallis maximus. In bibendum, metus sit amet hendrerit congue, ipsum enim facilisis dolor, sed porttitor mi sem quis arcu. Aliquam nisi enim, vulputate sed nibh et, convallis convallis elit. Nam iaculis lorem at tortor semper, pulvinar aliquam libero posuere. Pellentesque dictum nunc nec nibh posuere ornare. Sed vehicula viverra ipsum. Donec semper ex ac elit posuere congue. Ut lacinia, ipsum nec ultricies mollis, felis ante blandit mi, ac euismod urna quam ac ipsum. Praesent feugiat maximus ex, at auctor elit convallis et. Morbi fermentum mi nec nisl sollicitudin, lobortis pharetra purus fermentum. "
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="18sp" />
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TabbedActivity"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="DATE:"
+        android:textSize="24dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textColor="#FFFFF7"
+        android:id="@+id/date"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="TIME:"
+        android:textSize="24dp"
+        android:layout_below="@id/date"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textColor="#FFFFF7"
+        android:id="@+id/time"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="35dp"
+        android:text="EVENT NAME"
+        android:textSize="40dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textColor="#FFFFF7"
+        android:id="@+id/name"
+        android:layout_below="@+id/time"
+        />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_alignParentRight="true"
+        android:layout_margin="36dp"
+        android:id="@+id/img"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/default_img"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FFFFFF"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_margin="8dp"
+        android:text="DESCRIPTION:-"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        android:textStyle="bold|italic"
+        android:fontFamily="cursive"
+        android:id="@+id/tag"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tag"
+        android:layout_margin="8dp"
+        android:text="CULTURAL EVENT DESCRIPTION"
+        android:textColor="#FFFFFF"
+        android:textSize="12dp"
+        android:fontFamily="monospace"
+        android:id="@+id/desc"
+        />
+
+    <!--<Button-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="16dp"-->
+    <!--android:text="REGISTER"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:background="#4CAF50"-->
+    <!--android:layout_below="@id/tech_desc"-->
+    <!--android:textColor="#000000"-->
+    <!--android:id="@+id/tech_regsiter"-->
+    <!--android:onClick="tech_reg_click"/>-->
+
+</RelativeLayout>

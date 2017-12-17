@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "400127801580",
+    "firebase_url": "https://advaitam-c8f7b.firebaseio.com",
+    "project_id": "advaitam-c8f7b",
+    "storage_bucket": "advaitam-c8f7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400127801580:android:ba4b0a71c6650407",
+        "android_client_info": {
+          "package_name": "ac.nita.advaitam4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400127801580-vldk5pudin30e13e7megpb9s9grr2drv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaIK3_7ZTXCwTxjr0cJws7ewqzTsyXm6g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

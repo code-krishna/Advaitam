@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#000000">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="ac.nita.advaitam4.MainActivity"
+    android:background="#000000">
+
+   <android.support.v4.view.ViewPager
+       android:id="@+id/viewPager"
+       android:layout_width="match_parent"
+       android:layout_height="190dp"
+       android:layout_marginBottom="8dp"/>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/SliderDots"
+       android:layout_below="@+id/viewPager"
+       android:paddingBottom="8dp"
+       android:orientation="horizontal"
+       android:gravity="center_vertical|center_horizontal"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_below="@+id/SliderDots"
+        android:text="CULTURAL EVENTS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18dp"
+        android:textColor="#ffffff"
+        android:paddingLeft="5dp"
+        android:padding="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SliderDots1"
+        android:layout_below="@+id/textView1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center_horizontal">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/cultural_1"
+                    android:layout_width="270dp"
+                    android:layout_height="190dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/cultural_1"
+                    android:onClick="myClick"/>
+                <ImageButton
+                    android:id="@+id/cultural_2"
+                    android:layout_width="270dp"
+                    android:layout_height="190dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/cultural_2"
+                    android:onClick="myClick"/>
+                <ImageButton
+                    android:id="@+id/cultural_3"
+                    android:layout_width="270dp"
+                    android:layout_height="190dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/cultural_3"
+                    android:onClick="myClick"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/SliderDots1"
+        android:text="TECHNICAL EVENTS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18dp"
+        android:textColor="#ffffff"
+        android:padding="20dp"
+
+        android:paddingLeft="5dp"
+        tools:ignore="RtlSymmetry" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SliderDots2"
+        android:layout_below="@+id/textView2"
+        android:orientation="horizontal"
+
+        android:gravity="center_vertical|center_horizontal">
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/technical_1"
+                android:layout_width="270dp"
+                android:layout_height="190dp"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/technical_1"
+                android:onClick="myClick"/>
+            <ImageButton
+                android:id="@+id/technical_2"
+                android:layout_width="270dp"
+                android:layout_height="190dp"
+                android:background="@drawable/technical_2"
+                android:layout_marginLeft="12dp"
+                android:onClick="myClick"
+                />
+            <ImageButton
+                android:id="@+id/technical_3"
+                android:layout_width="270dp"
+                android:layout_height="190dp"
+                android:background="@drawable/technical_3"
+                android:layout_marginLeft="12dp"
+                android:onClick="myClick"/>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/SliderDots2"
+        android:text="SPORTS EVENTS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18dp"
+        android:textColor="#ffffff"
+        android:padding="20dp"
+        android:paddingLeft="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SliderDots3"
+        android:layout_below="@+id/textView3"
+        android:orientation="horizontal"
+
+        android:gravity="center_vertical|center_horizontal">
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp">
+            <ImageButton
+                android:id="@+id/sports_1"
+                android:layout_width="270dp"
+                android:layout_height="190dp"
+                android:background="@drawable/sports_1"
+                android:layout_marginLeft="12dp"
+                android:onClick="myClick"/>
+            <ImageButton
+                android:id="@+id/sports_2"
+                android:layout_width="270dp"
+                android:layout_height="190dp"
+                android:background="@drawable/sports_2"
+                android:layout_marginLeft="12dp"
+                android:onClick="myClick"/>
+            <ImageButton
+                android:id="@+id/sports_3"
+                android:layout_width="270dp"
+                android:layout_height="190dp"
+                android:background="@drawable/sports_3"
+                android:layout_marginLeft="12dp"
+                android:onClick="myClick"/>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

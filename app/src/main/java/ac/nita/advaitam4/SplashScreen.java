@@ -40,9 +40,9 @@ public class SplashScreen extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.splash_image_view);
 
-        //Animation zoomin = AnimationUtils.loadAnimation(this, R.anim.zoomin);
+        
         Animation zoomout = AnimationUtils.loadAnimation(this, R.anim.zoom_out);
-        //imageView.setAnimation(zoomin);
+        
         imageView.setAnimation(zoomout);
 
 

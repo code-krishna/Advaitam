@@ -11,11 +11,11 @@
 
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/splash_image_view"
         android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_marginTop="156dp"
-        app:srcCompat="@drawable/advaitam_splash_image"
+        app:srcCompat="@drawable/splash_image"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -23,7 +23,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView3"
+        android:layout_below="@+id/splash_image_view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="78dp"
         android:text="@string/advaitam_4_0"

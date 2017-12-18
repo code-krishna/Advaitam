@@ -9,10 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+/**
+ * Created by Sourav on 07/07/2017.
+ */
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -30,6 +37,13 @@ public class SplashScreen extends AppCompatActivity {
 
 
         sharedPreferences = getSharedPreferences("USER",MODE_PRIVATE);
+
+        ImageView imageView = (ImageView) findViewById(R.id.splash_image_view);
+
+        
+        Animation zoomout = AnimationUtils.loadAnimation(this, R.anim.zoom_out);
+        
+        imageView.setAnimation(zoomout);
 
 
         Thread timerThread = new Thread(){

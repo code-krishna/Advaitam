@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="nita.ac.advaitam4.SplashScreen"
+    tools:context="ac.nita.advaitam4.SplashScreen"
     tools:showIn="@layout/activity_splash_screen"
     android:background="@android:color/black">
 
@@ -15,7 +15,7 @@
         android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_marginTop="156dp"
-        app:srcCompat="@drawable/splash_image"
+        app:srcCompat="@drawable/advaitam_splash_image"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

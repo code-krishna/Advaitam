@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Advaitam.iml" filepath="$PROJECT_DIR$/Advaitam.iml" />
-      <module fileurl="file://D:\android\Advaitam\Advaitam.iml" filepath="D:\android\Advaitam\Advaitam.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\android\Advaitam\app\app.iml" filepath="D:\android\Advaitam\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -309,7 +309,7 @@ public class Login extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 // App code
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                startActivity(new Intent(Login.this,Categories.class));
+                startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
 
             @Override
@@ -344,7 +344,7 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(Login.this,Categories.class));
+                            startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -374,7 +374,7 @@ public class Login extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("mylog", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                startActivity(new Intent(Login.this,Categories.class));
+                                startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -448,7 +448,7 @@ public class Login extends AppCompatActivity {
             if(signInResult.isSuccess()){
                 GoogleSignInAccount account = signInResult.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                startActivity(new Intent(Login.this,Categories.class));
+                startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             } else {
                 Log.d("mylog","Google Login failed");
             }
@@ -490,7 +490,7 @@ public class Login extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(Login.this,"Authentication failed.",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Login.this,Categories.class));
+                            startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         }
                     }
                 });

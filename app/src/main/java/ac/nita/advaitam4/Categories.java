@@ -3,11 +3,13 @@ package ac.nita.advaitam4;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,11 +24,18 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -35,6 +44,15 @@ import org.json.JSONObject;
 
 public class Categories extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseDatabase database;
+    private DatabaseReference mRef;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    boolean profile = true;
+    String name1,enroll1,cont1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +73,11 @@ public class Categories extends AppCompatActivity
         String profileImageUrl = user.getPhotoUrl().toString();
 
 
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        sharedPreferences = getSharedPreferences("USER",0);
+        editor = sharedPreferences.edit();
+        mRef = FirebaseDatabase.getInstance().getReference();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -79,7 +102,39 @@ public class Categories extends AppCompatActivity
 
 
 
-        setFragment(new Home());
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        Log.d("myDebug","value " + sharedPreferences.getString("NAME", " ")+
+                sharedPreferences.getString("CONTACT", " ")+
+                sharedPreferences.getString("ENROLL", " "));
+
+        mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                   profile = dataSnapshot.exists();
+                }else{
+                    profile = dataSnapshot.exists();
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+
+            }
+        });
+        if(!profile){
+            Toast.makeText(getApplicationContext(), "Oops you didn't Completed Your Profile Yet !!", Toast.LENGTH_SHORT).show();
+
+            setFragment(new Home());
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_holder,new Profile()).addToBackStack("hii");
+            ft.commit();
+        }else{
+            setFragment(new Home());
+        }
 
     }
 
@@ -112,6 +167,16 @@ public class Categories extends AppCompatActivity
         if (id == R.id.action_search) {
             onSearchRequested();
             return true;
+        }if(id == R.id.action_logout) {
+            if(user != null)
+                mAuth.signOut();
+            editor.putString("user_mode","NULL").apply();
+            editor.putBoolean("Flag",false).apply();
+            editor.putString("NAME"," ").apply();
+            editor.putString("CONTACT"," ").apply();
+            editor.putString("ENROLL"," ").apply();
+            startActivity(new Intent(Categories.this,SplashScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -144,7 +209,7 @@ public class Categories extends AppCompatActivity
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_holder, fragment);
+            ft.replace(R.id.fragment_holder, fragment).addToBackStack("yes");
             ft.commit();
         }
 

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import Fragments.DescriptionFragment;
+import Fragments.ListOfParticipantFragment;
 import Fragments.OrganisersFragment;
 import Fragments.ResultsFragment;
 
@@ -18,10 +19,12 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
     CharSequence titles[];
     //Bundle bundle;
     String idName;
+    Boolean flag;
 
-    public SimpleFragmentPagerAdapter(FragmentManager fm, CharSequence mTitles[],String idName) {
+    public SimpleFragmentPagerAdapter(FragmentManager fm, CharSequence mTitles[],String idName,boolean flag) {
         super(fm);
         titles=mTitles;
+        this.flag = flag;
         this.idName=idName;
     }
 
@@ -40,9 +43,11 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
         {
             return new OrganisersFragment();
         }
-        else
+        if (position == 2)
         {
             return new ResultsFragment();
+        }else{
+            return new ListOfParticipantFragment();
         }
 
 
@@ -54,6 +59,10 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override public int getCount() {
-        return 3; // no. of fragments –can use a final int for this.
+//        return 3; // no. of fragments –can use a final int for this.
+        if(flag == true)
+            return 4; // no. of fragments –can use a final int for this.
+        else
+            return 3;
     }
 }

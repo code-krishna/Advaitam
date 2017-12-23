@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Advaitam.iml" filepath="$PROJECT_DIR$/Advaitam.iml" />
+      <module fileurl="file://C:\Users\HP\Desktop\apk\Advaitam\Advaitam\Advaitam.iml" filepath="C:\Users\HP\Desktop\apk\Advaitam\Advaitam\Advaitam.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\HP\Desktop\apk\Advaitam\Advaitam\app\app.iml" filepath="C:\Users\HP\Desktop\apk\Advaitam\Advaitam\app\app.iml" />
     </modules>
   </component>
 </project>

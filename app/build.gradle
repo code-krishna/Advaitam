@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "27.0.1"
+    buildToolsVersion "26.1.0"
     defaultConfig {
         applicationId "ac.nita.advaitam4"
         minSdkVersion 15
@@ -47,6 +47,7 @@ dependencies {
 
 
     testCompile 'junit:junit:4.12'
+    compile 'com.github.bumptech.glide:glide:4.4.0'
 }
 
 

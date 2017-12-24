@@ -54,7 +54,7 @@ public class Categories extends AppCompatActivity
     private FirebaseUser user;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    boolean profile = true;
+    boolean profile ;
     String name1, enroll1, cont1,uid;
     private CallbackManager callbackManager;
 
@@ -67,7 +67,6 @@ public class Categories extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        String profileImageUrl = user.getPhotoUrl().toString();
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -83,31 +82,26 @@ public class Categories extends AppCompatActivity
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            uid = "Anonymous";
+        if(sharedPreferences.getString("Signed in via fb or google","false").equals("true")){
+                String profileImageUrl = user.getPhotoUrl().toString();
 
-        }
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
+                TextView navUsername = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+                TextView navEmail = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_email);
 
-        TextView navUsername = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_username);
-        TextView navEmail = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_email);
+                navUsername.setText(user.getDisplayName());
+                navEmail.setText(user.getEmail());
 
-        navUsername.setText(user.getDisplayName());
-        navEmail.setText(user.getEmail());
-
-        ImageView navImage = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
-        RequestOptions options = new RequestOptions()
+                ImageView navImage = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
+                RequestOptions options = new RequestOptions()
                                 .centerCrop()
                                 .placeholder(R.drawable.ic_account_circle_black_24dp)
                                 .error(R.drawable.ic_account_circle_black_24dp);
+                Glide.with(this).load(profileImageUrl).apply(options).into(navImage);
+            }
+        }else {
+            uid = "Anonymous";
 
-
-
-//        Glide.with(this).load(profileImageUrl).apply(options).into(navImage);
-
-
-
+        }
 
         Log.d("myDebug","value " + sharedPreferences.getString("NAME", " ")+
                 sharedPreferences.getString("CONTACT", " ")+
@@ -117,17 +111,18 @@ public class Categories extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                     profile = dataSnapshot.exists();
-                    Log.d("Profile Check ","   checking   "+profile);
+                    Log.d("Profile Check ","   checking   "+ profile);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                    profile = false;
+                    Log.d("Profile Check ","   checking  cancellled "+ profile);
 
             }
         });
         if(!profile){
+            Log.d("Profile Check "," Entered   checking  cancellled ");
             Toast.makeText(getApplicationContext(), "Oops you didn't Completed Your Profile Yet !!", Toast.LENGTH_SHORT).show();
-
             setFragment(new Home());
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_holder,new Profile()).addToBackStack("hii");

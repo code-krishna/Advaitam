@@ -119,10 +119,10 @@ public class Profile extends Fragment {
                 Log.d("myLog ", "Data :  " + uri);
                 Glide.with(img1.getContext())
                         .load(uri)
-                        .priority(Priority.IMMEDIATE)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .skipMemoryCache(true)
-                        .centerCrop()
+//                        .priority(Priority.IMMEDIATE)
+//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                        .skipMemoryCache(true)
+//                        .centerCrop()
                         .into(img1);
             }
         }).addOnFailureListener(new OnFailureListener() {

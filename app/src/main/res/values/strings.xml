@@ -24,6 +24,7 @@
 
     <string name="facebook_app_id">304603200048305</string>
     <string name="fb_login_protocol_scheme">fb304603200048305</string>
+
     <string name="advaitam_4_0">Advaitam 4.0</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_activity_gallery">Gallery</string>

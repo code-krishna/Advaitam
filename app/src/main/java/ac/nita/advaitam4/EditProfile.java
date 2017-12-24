@@ -117,10 +117,9 @@ public class EditProfile extends Fragment {
                 Log.d("myLog ","uri : " + uri);
                 Glide.with(img.getContext())
                         .load(uri)
-                        .priority(Priority.IMMEDIATE)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .skipMemoryCache(true)
-                        .centerCrop()
+//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                        .skipMemoryCache(true)
+//                        .centerCrop()
                         .into(img);
             }
         }).addOnFailureListener(new OnFailureListener() {

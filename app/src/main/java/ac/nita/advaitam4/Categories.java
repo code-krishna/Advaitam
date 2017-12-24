@@ -19,9 +19,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.facebook.CallbackManager;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +39,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.bumptech.glide.request.RequestOptions;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +55,8 @@ public class Categories extends AppCompatActivity
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     boolean profile = true;
-    String name1,enroll1,cont1;
+    String name1, enroll1, cont1,uid;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +65,13 @@ public class Categories extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+//        String profileImageUrl = user.getPhotoUrl().toString();
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        sharedPreferences = getSharedPreferences("USER",0);
+        sharedPreferences = getSharedPreferences("USER", 0);
         editor = sharedPreferences.edit();
         mRef = FirebaseDatabase.getInstance().getReference();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -64,9 +79,36 @@ public class Categories extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        callbackManager = CallbackManager.Factory.create();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } else {
+            uid = "Anonymous";
+
+        }
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+
+        TextView navUsername = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+        TextView navEmail = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_email);
+
+        navUsername.setText(user.getDisplayName());
+        navEmail.setText(user.getEmail());
+
+        ImageView navImage = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
+        RequestOptions options = new RequestOptions()
+                                .centerCrop()
+                                .placeholder(R.drawable.ic_account_circle_black_24dp)
+                                .error(R.drawable.ic_account_circle_black_24dp);
+
+
+
+//        Glide.with(this).load(profileImageUrl).apply(options).into(navImage);
+
+
+
+
         Log.d("myDebug","value " + sharedPreferences.getString("NAME", " ")+
                 sharedPreferences.getString("CONTACT", " ")+
                 sharedPreferences.getString("ENROLL", " "));
@@ -74,12 +116,8 @@ public class Categories extends AppCompatActivity
         mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                   profile = dataSnapshot.exists();
-                }else{
                     profile = dataSnapshot.exists();
-
-                }
+                    Log.d("Profile Check ","   checking   "+profile);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -132,6 +170,7 @@ public class Categories extends AppCompatActivity
         }if(id == R.id.action_logout) {
             if(user != null)
                 mAuth.signOut();
+            LoginManager.getInstance().logOut();
             editor.putString("user_mode","NULL").apply();
             editor.putBoolean("Flag",false).apply();
             editor.putString("NAME"," ").apply();
@@ -143,7 +182,6 @@ public class Categories extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -195,6 +233,12 @@ public class Categories extends AppCompatActivity
         Intent in = new Intent(this, TabbedActivity.class);
         in.putExtra("KEY",getResources().getResourceEntryName(view.getId()));
         startActivity(in);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
 

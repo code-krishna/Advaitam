@@ -136,7 +136,9 @@ public class Categories extends AppCompatActivity
             fragment = new Home();
         } else if (id == R.id.nav_events) {
 
-        } else if (id == R.id.nav_qrscanner) {
+        }   else if (id == R.id.nav_quest) {
+            fragment = new Quest();
+        }  else if (id == R.id.nav_qrscanner) {
             fragment = new QrScanner();
         } else if (id == R.id.nav_developers){
             fragment = new Developers();

@@ -27,6 +27,10 @@
             android:icon="@drawable/ic_developer_mode_black_24dp"
             android:title="Developers" />
         <item
+            android:id="@+id/nav_quest"
+            android:icon="@drawable/ic_videogame_asset_black_24dp"
+            android:title="Quest" />
+        <item
             android:id="@+id/nav_qrscanner"
             android:icon="@drawable/ic_scanner_black_24dp"
             android:title="QR Scanner" />

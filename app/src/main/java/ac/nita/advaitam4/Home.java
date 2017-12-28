@@ -52,11 +52,11 @@ public class Home extends Fragment {
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Home");
 
-        PACKAGE_NAME=getContext().getPackageName();
+        PACKAGE_NAME = getContext().getPackageName();
 
         viewPager =(ViewPager) view.findViewById(R.id.viewPager);
         sliderDotspanel = (LinearLayout) view.findViewById(R.id.SliderDots);
-        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getActivity());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity());
         viewPager.setAdapter(viewPagerAdapter);
 
         Timer timer = new Timer();
@@ -75,6 +75,7 @@ public class Home extends Fragment {
         }
         dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.active));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

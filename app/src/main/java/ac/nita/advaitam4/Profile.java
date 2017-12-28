@@ -1,5 +1,6 @@
 package ac.nita.advaitam4;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,14 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,15 +42,16 @@ import Info.user_info;
 public class Profile extends Fragment {
 
     private ImageView img1;
-    private TextView textName, textEnroll, textContact;
+    private TextView textName, textEnroll, textContact,textCollege;
     private Button btn;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
     private FirebaseStorage storage;
     private StorageReference sRef;
-    user_info user_data_to_show;
+    private FirebaseUser user;
     String uid;
+    private ProgressDialog mProgressDialog;
     Map<String, String> map;
     private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
     public Profile(){}
@@ -67,21 +72,41 @@ public class Profile extends Fragment {
         textName = rootView.findViewById(R.id.showNameProf);
         textEnroll = rootView.findViewById(R.id.showEnrollProf);
         textContact = rootView.findViewById(R.id.showContProf);
+        textCollege = rootView.findViewById(R.id.showCollegeProf);
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
+        user = mAuth.getCurrentUser();
 
-
+        mProgressDialog = new ProgressDialog(getActivity());
+        textName.setText( preferences.getString("NAME","NAME"));
+        textEnroll.setText( preferences.getString("ENROLL","ENROLL"));
+        textContact.setText(preferences.getString("CONTACT","CONTACT"));
+        textCollege.setText(preferences.getString("COLLEGE","COLLEGE"));
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .centerCrop()
+                .error(R.drawable.ic_account_circle_black_24dp);
+        mProgressDialog.show();
+        mProgressDialog.setMessage("Loading");
+        Glide.with(img1.getContext())
+                .load(user.getPhotoUrl())
+                .apply(options)
+                .into(img1);
+        mProgressDialog.dismiss();
 
         mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     Log.d("valueName:", "DATA : "+ dataSnapshot);
-                    textName.setText((String)dataSnapshot.child("name").getValue());
-                    textEnroll.setText((String)dataSnapshot.child("enroll").getValue());
-                    textContact.setText((String)dataSnapshot.child("contact").getValue());
+                    editor.putString("NAME",(String)dataSnapshot.child("name").getValue()).apply();
+                    editor.putString("CONTACT",(String)dataSnapshot.child("contact").getValue()).apply();
+                    editor.putString("ENROLL",(String)dataSnapshot.child("enroll").getValue()).apply();
                 }
             }
             @Override
@@ -90,7 +115,7 @@ public class Profile extends Fragment {
             }
         });
 
-        Log.d("valueName:", "DATA : "+preferences.getString("NAME","My Name")+preferences.getString("ENROLL","EnrollMent")+preferences.getString("CONTACT","Contact"));
+        Log.d("valueName:", "DATA : "+preferences.getString("NAME","My Name")+preferences.getString("ENROLL","EnrollMent")+preferences.getString("CONTACT","Contact")+preferences.getString("COLLEGE","COLLEGE"));
         storage = FirebaseStorage.getInstance();
         sRef = storage.getReference();
         return rootView;
@@ -113,25 +138,6 @@ public class Profile extends Fragment {
         });
 
 
-        sRef.child("USERS/"+uid+"/pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.d("myLog ", "Data :  " + uri);
-                Glide.with(img1.getContext())
-                        .load(uri)
-//                        .priority(Priority.IMMEDIATE)
-//                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                        .skipMemoryCache(true)
-//                        .centerCrop()
-                        .into(img1);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d("myLog ", "Data :  " + uid +"/pic");
-            }
-        });
-
-
     }
 }
+

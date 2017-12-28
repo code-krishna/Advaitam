@@ -36,8 +36,36 @@
 
     <string-array name="gender">
         <item>Select -->   </item>
-        <item>Organisers</item>
-        <item>Participants</item>
+        <item>NIT Agartala</item>
+        <item>NIT Silchar</item>
+        <item>NIT Manipur</item>
+        <item>NIT Patna</item>
+        <item>NIT Jalandhar</item>
+        <item>MNNIT Allahabad</item>
+        <item>NIT Calicut</item>
+        <item>NIT Durgapur</item>
+        <item>NIT Hamirpur</item>
+        <item>NIT Jamshedpur</item>
+        <item>NIT Hamirpur</item>
+        <item>NIT Jaipur</item>
+        <item>NIT Kurukshetra</item>
+        <item>VNIT Nagpur</item>
+        <item>NIT Raipur</item>
+        <item>NIT Rourkela</item>
+        <item>NIT Srinagar</item>
+        <item>SVNIT Surat</item>
+        <item>NIT Surathkal</item>
+        <item>NIT Trichy</item>
+        <item>NIT Warangal</item>
+        <item>NIT Arunachal Pradesh</item>
+        <item>NIT Goa</item>
+        <item>NIT Meghalaya</item>
+        <item>NIT Nagaland</item>
+        <item>NIT Manipur</item>
+        <item>NIT Mizoram</item>
+        <item>NIT Uttarakhand</item>
+        <item>NIT Delhi</item>
+        <item>NIT Pondicherry</item>
         <item>others</item>
     </string-array>
 

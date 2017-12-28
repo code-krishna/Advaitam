@@ -40,7 +40,17 @@
             android:textColor="#ffc61e"
             android:textAlignment="center"
             />
-
+        <TextView
+            android:id="@+id/showCollegeProf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:hint="NIT Agartala"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textAlignment="center"
+            android:textColor="#ffc61e" />
         <TextView
             android:id="@+id/showEnrollProf"
             android:layout_width="match_parent"

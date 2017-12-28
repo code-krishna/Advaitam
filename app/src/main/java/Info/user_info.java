@@ -14,6 +14,7 @@ public class user_info {
     private String enroll;
     private String contact;
     private String uid;
+    private String college;
     private String download_uri;
     public Map<String, Boolean> stars = new HashMap<>();
 
@@ -77,6 +78,24 @@ public class user_info {
     public user_info(String uid, String name, String Enroll, String number,String uri){
         this.download_uri = uri;
         this.name = name;
+        this.enroll = Enroll;
+        this.contact = number;
+        this.uid = uid;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public user_info(String uid, String name, String Enroll, String number, String uri, String college){
+        this.download_uri = uri;
+        this.college = college;
+        this.name = name;
+
         this.enroll = Enroll;
         this.contact = number;
         this.uid = uid;

@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
@@ -50,6 +51,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+
+import com.google.firebase.FirebaseApp;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.bumptech.glide.request.RequestOptions;
@@ -77,7 +81,12 @@ public class Categories extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         mAuth            = FirebaseAuth.getInstance();
         user            = mAuth.getCurrentUser();
@@ -91,6 +100,13 @@ public class Categories extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         sharedPreferences = this.getSharedPreferences("USER", 0);
         editor = sharedPreferences.edit();
+
+        FirebaseApp.initializeApp(this);
+
+        String profileImageUrl = user.getPhotoUrl().toString();
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -169,7 +185,6 @@ public class Categories extends AppCompatActivity
         Glide.with(this).load(profileImageUrl).apply(options).into(navImage);
 //        progressDialog.dismiss();
 
-    }
 
     private void updateProfile(String name, String profileImage_path) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -257,7 +272,9 @@ public class Categories extends AppCompatActivity
             fragment = new Home();
         } else if (id == R.id.nav_events) {
 
-        } else if (id == R.id.nav_qrscanner) {
+        }   else if (id == R.id.nav_quest) {
+            fragment = new Quest();
+        }  else if (id == R.id.nav_qrscanner) {
             fragment = new QrScanner();
         } else if (id == R.id.nav_developers){
             fragment = new Developers();
@@ -297,7 +314,8 @@ public class Categories extends AppCompatActivity
 
     }
 
-
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

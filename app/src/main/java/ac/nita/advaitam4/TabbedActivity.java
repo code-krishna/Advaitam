@@ -1,5 +1,6 @@
 package ac.nita.advaitam4;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,14 +30,14 @@ public class  TabbedActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    SectionsPagerAdapter mSectionsPagerAdapter;
+    SharedPreferences sharedPreferences;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private CharSequence[] titles={"Info","Organisers","Results"};
-
+    private CharSequence[] titles={"Info","Organisers","Results","Participants"};
+    private boolean flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,8 @@ public class  TabbedActivity extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        sharedPreferences = getSharedPreferences("USER",0);
+        flag = sharedPreferences.getBoolean("FLAG", false);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -60,7 +63,7 @@ public class  TabbedActivity extends AppCompatActivity {
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(),titles,idName);
+        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(),titles,idName,flag);
 
         viewPager.setAdapter(adapter);
 
@@ -153,20 +156,46 @@ public class  TabbedActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+//            return 3;
+            if(flag){
+                return 3;
+            }else {
+                return 4;
+            }
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Info";
-                case 1:
-                    return "Organisers";
-                case 2:
-                    return "Results";
+//            switch (position) {
+//                case 0:
+//                    return "Info";
+//                case 1:
+//                    return "Organisers";
+//                case 2:
+//                    return "Results";
+//            }
+            if (flag) {
+                switch (position) {
+                    case 0:
+                        return "Info";
+                    case 1:
+                        return "Organisers";
+                    case 2:
+                        return "Results";
+                }
+            } else {
+                switch (position) {
+                    case 0:
+                        return "Info";
+                    case 1:
+                        return "Organisers";
+                    case 2:
+                        return "Results";
+                    case 3:
+                        return "Participants";
+                }
             }
-            return null;
+                return null;
+            }
         }
-    }
 }

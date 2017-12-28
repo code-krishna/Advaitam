@@ -21,6 +21,8 @@ public class UserMode extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    public static boolean FLAG = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +54,10 @@ public class UserMode extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(v.getId() == R.id.participant){
+                    editor.putBoolean("FLAG",false).apply();
                     editor.putString("user_mode","PARTICIPANT").commit();
                 } else if(v.getId() == R.id.organiser){
+                    editor.putBoolean("FLAG",true).apply();
                     editor.putString("user_mode","ORGANISER").commit();
                 }
 

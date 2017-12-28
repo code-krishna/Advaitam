@@ -38,6 +38,7 @@ public class ScrollingActivity extends AppCompatActivity {
         final BitmapDrawable bd = new BitmapDrawable(bitmap);
         final ColorDrawable cd = new ColorDrawable(Color.rgb(68, 74, 83));
         mActionBar = getSupportActionBar();
+
         if(mActionBar == null){
             Log.d("mylog","Error : Action bar is null");
         }

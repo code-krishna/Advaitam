@@ -1,28 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
-    android:layout_height="match_parent">
+    android:background="#DDDDDD"
+    android:layout_height="match_parent"
+    android:weightSum="20"
+    android:id="@+id/container">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/a"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="5"
+        android:background="#111111"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/list_of_participants"
+        android:textColor="#EEEEEE"
+        android:textSize="30dp"/>
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFF7"
-        android:layout_margin="8dp"
-        android:text="participant 1"
-        android:fontFamily="cursive"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/b"
-        android:textColor="#FFFFF7"
-        android:layout_margin="8dp"
-        android:text="participant 2"
-        android:fontFamily="cursive"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+        android:id="@+id/myListView"
+        android:layout_weight="15">
+    </ListView>
 
 </LinearLayout>

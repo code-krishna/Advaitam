@@ -96,7 +96,6 @@ public class Categories extends AppCompatActivity
         uid              = user.getUid();
 
         progressDialog = new ProgressDialog(Categories.this);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         sharedPreferences = this.getSharedPreferences("USER", 0);
         editor = sharedPreferences.edit();
@@ -182,7 +181,7 @@ public class Categories extends AppCompatActivity
                 .skipMemoryCache(true)
                 .placeholder(R.drawable.ic_account_circle_black_24dp)
                 .error(R.drawable.ic_account_circle_black_24dp);
-        Glide.with(this).load(profileImageUrl).apply(options).into(navImage);
+        Glide.with(this).load(profileImageUrl).apply(options).into(navImage); }
 //        progressDialog.dismiss();
 
 
@@ -314,8 +313,4 @@ public class Categories extends AppCompatActivity
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 }

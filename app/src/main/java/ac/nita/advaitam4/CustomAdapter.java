@@ -13,13 +13,13 @@ import android.widget.TextView;
  */
 class CustomAdapter extends BaseAdapter {
 
-    int[] IMAGES;
-    String[] BRANCH;
-    String[] ENROLL;
-    String[] MOBILE;
-    String[] EMAIL;
-    String[] NAMES;
-    Context context;
+    public int[] IMAGES;
+    public String[] BRANCH;
+    public String[] ENROLL;
+    public String[] MOBILE;
+    public String[] EMAIL;
+    public String[] NAMES;
+    public Context context;
 
     public CustomAdapter(Context context,int[] IMAGES,String[] BRANCH,String[] ENROLL,String[] MOBILE,String[] EMAIL,String[] NAMES){
 
@@ -51,28 +51,41 @@ class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        PlaceHolder holder = null;
+        if(view == null)
+        {LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(R.layout.customlayout,null);
+        holder = new PlaceHolder();
+        holder.imageView=(ImageView)view.findViewById(R.id.imageView);
 
-        ImageView imageView=(ImageView)view.findViewById(R.id.imageView);
-
-        TextView textViewname= (TextView)view.findViewById(R.id.textViewName);
-        TextView textViewbranch= (TextView)view.findViewById(R.id.textViewbranch);
-        TextView textViewenroll= (TextView)view.findViewById(R.id.textViewenroll);
-        TextView textViewmobile= (TextView)view.findViewById(R.id.textViewmobile);
-        TextView textViewemail= (TextView)view.findViewById(R.id.textViewemail);
-
-        imageView.setImageResource(IMAGES[i]);
-        textViewname.setText(NAMES[i]);
-        textViewbranch.setText(BRANCH[i]);
-        textViewenroll.setText(ENROLL[i]);
-        textViewmobile.setText(MOBILE[i]);
-        textViewemail.setText(EMAIL[i]);
+        holder.textViewname= (TextView)view.findViewById(R.id.textViewName);
+        holder.textViewbranch= (TextView)view.findViewById(R.id.textViewbranch);
+        holder.textViewenroll= (TextView)view.findViewById(R.id.textViewenroll);
+        holder.textViewmobile= (TextView)view.findViewById(R.id.textViewmobile);
+        holder.textViewemail= (TextView)view.findViewById(R.id.textViewemail);
+        view.setTag(holder);}
+        else
+        {
+            holder = (PlaceHolder) view.getTag();
+        }
+        holder.imageView.setImageResource(IMAGES[i]);
+        holder.textViewname.setText(NAMES[i]);
+        holder.textViewbranch.setText(BRANCH[i]);
+        holder.textViewenroll.setText(ENROLL[i]);
+        holder.textViewmobile.setText(MOBILE[i]);
+        holder.textViewemail.setText(EMAIL[i]);
 
 
 
         return view;
     }
 
-
+private static class PlaceHolder {
+        TextView textViewname;
+        TextView textViewbranch;
+        TextView textViewenroll;
+        TextView textViewmobile;
+        TextView textViewemail;
+        ImageView imageView;
+}
 }

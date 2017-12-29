@@ -68,5 +68,6 @@
         <item>NIT Pondicherry</item>
         <item>others</item>
     </string-array>
+    <string name="list_of_participants">"LIST OF PARTICIPANTS"</string>
 
 </resources>

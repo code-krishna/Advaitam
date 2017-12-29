@@ -18,14 +18,14 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        debug {
+            debuggable false
             minifyEnabled true
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            useProguard true
+        }
+        debug {
+            debuggable true
+            minifyEnabled true
+            useProguard true
         }
     }
 }
@@ -77,7 +77,7 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 //    compile 'com.firebaseui:firebase-ui-storage:0.6.0'
-    implementation 'com.google.firebase:firebase-storage:11.6.2'
+    implementation 'com.google.firebase:firebase-storage:11.8.0'
 
 
     implementation 'com.github.bumptech.glide:glide:4.4.0'

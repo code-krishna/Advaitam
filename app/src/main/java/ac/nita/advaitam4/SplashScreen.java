@@ -25,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
+    public boolean flag1 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +37,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
         sharedPreferences = getSharedPreferences("USER",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         ImageView imageView = (ImageView) findViewById(R.id.splash_image_view);
 
@@ -56,6 +57,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
                     String userMode = sharedPreferences.getString("user_mode","NULL");
+                    flag1 = sharedPreferences.getBoolean("FLAG",false);
                     Log.d("mylog","usermode is "+userMode);
                     //boolean loggedIn = sharedPreferences.getBoolean("logged_in",false);
                     boolean loggedIn=false;
@@ -72,8 +74,10 @@ public class SplashScreen extends AppCompatActivity {
                     if(userMode.equals("NULL") && !loggedIn){
                          intent = new Intent(SplashScreen.this, UserMode.class);
                     } else if(userMode.equals("PARTICIPANT") && !loggedIn) {
+                        editor.putBoolean("FLAG",false).apply();
                          intent = new Intent(SplashScreen.this, Login.class);
                     } else if(userMode.equals("ORGANISER")){
+                        editor.putBoolean("FLAG",true).apply();
                          intent = new Intent(SplashScreen.this, Categories.class);
                     }
 
@@ -81,13 +85,19 @@ public class SplashScreen extends AppCompatActivity {
                     if(userMode.equals("NULL")){
                         intent = new Intent(SplashScreen.this, UserMode.class);
                     } else if(userMode.equals("PARTICIPANT")){
+                        editor.putBoolean("FLAG",false).apply();
                         if(loggedIn){
                             intent = new Intent(SplashScreen.this, Categories.class);
                         } else {
                             intent = new Intent(SplashScreen.this, Login.class);
                         }
                     } else if(userMode.equals("ORGANISER")){
-
+                        editor.putBoolean("FLAG",true).apply();
+                        if(loggedIn){
+                            intent = new Intent(SplashScreen.this, Categories.class);
+                        } else {
+                            intent = new Intent(SplashScreen.this, Login.class);
+                        }
                     }
 
                     startActivity(intent);

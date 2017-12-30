@@ -13,7 +13,7 @@ import android.widget.ImageView;
  */
 
 public class ViewPagerAdapter extends PagerAdapter {
-     private Context context;
+    private Context context;
     private LayoutInflater layoutInflater;
     private Integer [] images = {R.drawable.gate,R.drawable.dj,R.drawable.cultural,R.drawable.robot,R.drawable.sports};
 
@@ -38,15 +38,15 @@ public class ViewPagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         imageView.setImageResource(images[position]);
 
-        ViewPager vp=(ViewPager) container;
+        ViewPager vp = (ViewPager) container;
         vp.addView(view,0);
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ViewPager vp=(ViewPager) container;
-        View view=(View) object;
+        ViewPager vp = (ViewPager) container;
+        View view = (View) object;
         vp.removeView(view);
     }
 }

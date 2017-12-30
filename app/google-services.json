@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "400127801580-b70t8g0o7mff1asco7m4coaeqv6k7n50.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ac.nita.advaitam4",
+            "certificate_hash": "1fead01a4a5acb796717a9529c267857f6500651"
+          }
+        },
+        {
+          "client_id": "400127801580-tqufu0dfhesprron0hdva7ss6v045ase.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ac.nita.advaitam4",
+            "certificate_hash": "7241d7efff1abaebf981ea2f0ffe1f0cd105e70d"
+          }
+        },
+        {
+          "client_id": "400127801580-8p5suqm51uln7ctrsqp2vare4e2ledhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ac.nita.advaitam4",
+            "certificate_hash": "7643d971214cd98fa3b1c01e6d96b9dc697b589e"
+          }
+        },
+        {
           "client_id": "400127801580-vldk5pudin30e13e7megpb9s9grr2drv.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +53,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400127801580-vldk5pudin30e13e7megpb9s9grr2drv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="ac.nita.advaitam4.MainActivity"
+    android:background="#000000">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginBottom="8dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SliderDots"
+        android:layout_below="@+id/viewPager"
+        android:paddingBottom="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cultural"
+            android:layout_below="@+id/SliderDots"
+            android:text="CULTURAL EVENTS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:paddingLeft="5dp"
+            android:padding="20dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:id="@+id/rec1"
+        android:layout_below="@+id/cultural"
+        android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/technical"
+            android:layout_below="@+id/rec1"
+            android:text="TECHNICAL EVENTS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:padding="20dp"
+            android:paddingLeft="5dp"
+            tools:ignore="RtlSymmetry" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rec2"
+        android:layout_below="@+id/technical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sports"
+            android:layout_below="@+id/rec2"
+            android:text="SPORTS EVENTS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:padding="20dp"
+            android:paddingLeft="5dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/sports"
+        android:id="@+id/rec3"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
+</ScrollView>

@@ -15,7 +15,7 @@
         android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_marginTop="156dp"
-        app:srcCompat="@drawable/advaitam_splash_image"
+        app:srcCompat="@drawable/splash_image"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

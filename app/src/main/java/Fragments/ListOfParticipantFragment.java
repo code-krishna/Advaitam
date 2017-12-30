@@ -46,7 +46,7 @@ public class ListOfParticipantFragment extends Fragment {
 
     Context context;
 
-    ArrayList<Place> myPlacesArray = new ArrayList<Place>();
+    ArrayList<Place> myPlacesArray = new ArrayList<>();
 
     ProgressBar progressBar;
 
@@ -134,13 +134,14 @@ public class ListOfParticipantFragment extends Fragment {
 
                 Log.d("mylog", " Arraylist size is "+myPlacesArray.size());
 
-                 Place[] toArrayPlaces = new Place[myPlacesArray.size()];
-                 myPlacesArray.toArray(toArrayPlaces);
+                 //Place[] toArrayPlaces = new Place[myPlacesArray.size()];
+                 //myPlacesArray.toArray(toArrayPlaces);
 
                 ListView mListView = (ListView) view.findViewById(R.id.myListView);
-                PlaceArrayAdapter mArrayAdapter = new PlaceArrayAdapter(context, R.layout.row, toArrayPlaces);
+                PlaceArrayAdapter mArrayAdapter = new PlaceArrayAdapter(getActivity(), R.layout.row, myPlacesArray);
+                mListView.setAdapter(mArrayAdapter);
 
-                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.GONE);
 
 
             }

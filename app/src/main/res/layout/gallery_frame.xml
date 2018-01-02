@@ -28,10 +28,11 @@
             android:padding="3dp">
 
             <ImageView
+                android:id="@+id/image_view1"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
-                android:scaleType="centerCrop"
 
+                android:scaleType="centerCrop"
                 android:src="@drawable/advaitam_4_logo" />
 
         </RelativeLayout>
@@ -44,6 +45,7 @@
             android:padding="3dp">
 
             <ImageView
+                android:id="@+id/image_view2"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
                 android:layout_weight="50"
@@ -73,10 +75,11 @@
         android:padding="3dp">
 
         <ImageView
+            android:id="@+id/image_view3"
             android:layout_width="match_parent"
             android:layout_height="185dp"
-            android:scaleType="centerCrop"
 
+            android:scaleType="centerCrop"
             android:src="@drawable/advaitam_4_logo" />
 
     </RelativeLayout>
@@ -106,10 +109,11 @@
             android:padding="3dp">
 
             <ImageView
+                android:id="@+id/image_view4"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
-                android:scaleType="centerCrop"
 
+                android:scaleType="centerCrop"
                 android:src="@drawable/advaitam_4_logo" />
 
         </RelativeLayout>
@@ -122,6 +126,7 @@
             android:padding="3dp">
 
             <ImageView
+                android:id="@+id/image_view5"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
                 android:layout_weight="50"
@@ -152,10 +157,11 @@
             android:padding="3dp">
 
             <ImageView
+                android:id="@+id/image_view6"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
-                android:scaleType="centerCrop"
 
+                android:scaleType="centerCrop"
                 android:src="@drawable/advaitam_4_logo" />
 
         </RelativeLayout>
@@ -168,6 +174,7 @@
             android:padding="3dp">
 
             <ImageView
+                android:id="@+id/image_view7"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
                 android:layout_weight="50"
@@ -196,6 +203,7 @@
         android:weightSum="99">
 
         <ImageView
+            android:id="@+id/image_view8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -203,11 +211,12 @@
             android:layout_weight="33"
             android:background="@color/colorPrimaryDark"
             android:padding="3dp"
-            android:padding_left="3dp"
+            android:paddingLeft="3dp"
             android:scaleType="centerCrop"
             android:src="@drawable/advaitam_4_logo" />
 
         <ImageView
+            android:id="@+id/image_view9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -220,6 +229,7 @@
             android:src="@drawable/advaitam_4_logo" />
 
         <ImageView
+            android:id="@+id/image_view10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"

@@ -10,12 +10,369 @@
     tools:showIn="@layout/activity_gallery">
 
 
+<<<<<<< Updated upstream
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
 
+=======
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ListView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        </ListView>
+
+
+    </LinearLayout>
+
+
+    <!--
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:paddingEnd="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingStart="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/yellow"
+                android:padding="3dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/advaitam_4_logo"
+                    android:contentDescription="@string/app_name"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingEnd="4dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingStart="4dp"
+                android:weightSum="100"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="50"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/advaitam_4_logo" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/advaitam_4_logo"
+                        android:contentDescription="@string/app_name"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingEnd="4dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingStart="4dp"
+                android:weightSum="100"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="50"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/advaitam_4_logo" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="191dp"
+                    android:layout_weight="50"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginRight="4dp"
+                            android:background="@color/yellow"
+                            android:padding="3dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="185dp"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/advaitam_4_logo" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/yellow"
+                            android:padding="3dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="185dp"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/advaitam_4_logo" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:orientation="horizontal"
+                        android:paddingTop="4dp"
+                        android:weightSum="100"
+                        android:baselineAligned="false">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_weight="50"
+                            android:background="@color/yellow"
+                            android:padding="3dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="185dp"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/advaitam_4_logo" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/yellow"
+                            android:padding="3dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="185dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/advaitam_4_logo"
+                                android:contentDescription="@string/app_name"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:paddingEnd="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingStart="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/yellow"
+                android:padding="3dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/advaitam_4_logo" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:paddingEnd="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingStart="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/yellow"
+                android:padding="3dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/advaitam_4_logo"
+                    android:contentDescription="@string/app_name"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingEnd="4dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingStart="4dp"
+                android:weightSum="100"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="50"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/advaitam_4_logo" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/advaitam_4_logo"
+                        android:contentDescription="@string/app_name"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+    -->
+>>>>>>> Stashed changes
 
 
 

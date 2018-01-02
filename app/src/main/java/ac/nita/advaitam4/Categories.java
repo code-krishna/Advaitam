@@ -212,6 +212,10 @@ public class Categories extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            setFragment(new Home());
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_holder, new EditProfile()).addToBackStack("hii");
+            ft.commit();
             super.onBackPressed();
         }
     }

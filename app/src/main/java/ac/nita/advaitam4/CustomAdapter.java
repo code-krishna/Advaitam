@@ -1,12 +1,9 @@
 package ac.nita.advaitam4;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +11,7 @@ import android.widget.TextView;
 /**
  * Created by sourav9674 on 12/13/2017.
  */
-class CustomAdapter extends ArrayAdapter {
+class CustomAdapter extends BaseAdapter {
 
     public int[] IMAGES;
     public String[] BRANCH;
@@ -22,12 +19,10 @@ class CustomAdapter extends ArrayAdapter {
     public String[] MOBILE;
     public String[] EMAIL;
     public String[] NAMES;
-    public Activity context;
-    final int random = (int )(Math.random() * 7);
+    public Context context;
 
+    public CustomAdapter(Context context,int[] IMAGES,String[] BRANCH,String[] ENROLL,String[] MOBILE,String[] EMAIL,String[] NAMES){
 
-    public CustomAdapter(Activity context,int[] IMAGES,String[] BRANCH,String[] ENROLL,String[] MOBILE,String[] EMAIL,String[] NAMES){
-        super(context,-1,NAMES);
         this.context = context;
         this.IMAGES = IMAGES;
         this.BRANCH = BRANCH;
@@ -55,16 +50,19 @@ class CustomAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int pos, View view, ViewGroup viewGroup) {
-
-        Log.d("mylog", "Random is "+random);
-        int i=(pos+random)%6;
-
+    public View getView(int i, View view, ViewGroup viewGroup) {
         PlaceHolder holder = null;
         if(view == null)
-        {LayoutInflater inflater =context.getLayoutInflater();
-        view = inflater.inflate(R.layout.customlayout,viewGroup,false);
-        holder = new PlaceHolder(view);
+        {LayoutInflater inflater = LayoutInflater.from(context);
+        view = inflater.inflate(R.layout.customlayout,null);
+        holder = new PlaceHolder();
+        holder.imageView=(ImageView)view.findViewById(R.id.imageView);
+
+        holder.textViewname= (TextView)view.findViewById(R.id.textViewName);
+        holder.textViewbranch= (TextView)view.findViewById(R.id.textViewbranch);
+        holder.textViewenroll= (TextView)view.findViewById(R.id.textViewenroll);
+        holder.textViewmobile= (TextView)view.findViewById(R.id.textViewmobile);
+        holder.textViewemail= (TextView)view.findViewById(R.id.textViewemail);
         view.setTag(holder);}
         else
         {
@@ -89,15 +87,5 @@ private static class PlaceHolder {
         TextView textViewmobile;
         TextView textViewemail;
         ImageView imageView;
-
-        public PlaceHolder(View view){
-            imageView=(ImageView)view.findViewById(R.id.imageView);
-            textViewname= (TextView)view.findViewById(R.id.textViewName);
-            textViewbranch= (TextView)view.findViewById(R.id.textViewbranch);
-            textViewenroll= (TextView)view.findViewById(R.id.textViewenroll);
-            textViewmobile= (TextView)view.findViewById(R.id.textViewmobile);
-            textViewemail= (TextView)view.findViewById(R.id.textViewemail);
-        }
-
 }
 }

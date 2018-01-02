@@ -3,13 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Advaitam.iml" filepath="$PROJECT_DIR$/Advaitam.iml" />
-<<<<<<< HEAD
-=======
 
       <module fileurl="file://E:\WORK\Android\AndroidStudioProjects\LAB\Advaitam-master\Advaitam.iml" filepath="E:\WORK\Android\AndroidStudioProjects\LAB\Advaitam-master\Advaitam.iml" />
       <module fileurl="file://C:\Users\HP\Desktop\apk\Advaitam\Advaitam\Advaitam-master.iml" filepath="C:\Users\HP\Desktop\apk\Advaitam\Advaitam\Advaitam-master.iml" />
 
->>>>>>> 26a06fc31ae7039c5cb0c773e4c199cb21adcb95
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

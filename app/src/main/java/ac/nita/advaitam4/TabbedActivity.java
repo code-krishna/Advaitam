@@ -18,10 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import Fragments.DescriptionFragment;
-import Fragments.ListOfParticipantFragment;
-import Fragments.OrganisersFragment;
-import Fragments.ResultsFragment;
+import Adapters.SimpleFragmentPagerAdapter;
 
 public class  TabbedActivity extends AppCompatActivity {
 
@@ -58,19 +55,17 @@ public class  TabbedActivity extends AppCompatActivity {
         flag = sharedPreferences.getBoolean("FLAG", false);
 
         // Set up the ViewPager with the sections adapter.
-        //mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        //mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(),titles,idName,flag);
 
         viewPager.setAdapter(adapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -203,57 +198,4 @@ public class  TabbedActivity extends AppCompatActivity {
                 return null;
             }
         }
-
-    public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
-
-        CharSequence titles[];
-        //Bundle bundle;
-        String idName;
-        Boolean flag;
-
-        public SimpleFragmentPagerAdapter(FragmentManager fm, CharSequence mTitles[],String idName,boolean flag) {
-            super(fm);
-            this.titles=mTitles;
-            this.flag = flag;
-            this.idName=idName;
-        }
-
-        @Override
-        public Fragment getItem(int position) {	//0- based index position
-            if (position == 0)
-            {
-                DescriptionFragment descriptionFragment= new DescriptionFragment();
-                Bundle bundle=new Bundle();
-                bundle.putString("KEY",idName);
-                descriptionFragment.setArguments(bundle);
-                return descriptionFragment;
-            }
-            else
-            if (position == 1)
-            {
-                return new OrganisersFragment();
-            }
-            if (position == 2)
-            {
-                return new ResultsFragment();
-            }else{
-                return new ListOfParticipantFragment();
-            }
-
-
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
-
-        @Override public int getCount() {
-//        return 3; // no. of fragments –can use a final int for this.
-            if(flag)
-                return 4; // no. of fragments –can use a final int for this.
-            else
-                return 3;
-        }
-    }
 }

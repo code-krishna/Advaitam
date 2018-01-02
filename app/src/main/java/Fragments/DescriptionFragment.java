@@ -104,11 +104,9 @@ public class DescriptionFragment extends Fragment {
 
         final View view = v;
 
+        idName="event123";
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference("data/events/"+idName);
-
-
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

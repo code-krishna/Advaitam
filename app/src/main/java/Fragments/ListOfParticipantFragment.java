@@ -46,7 +46,7 @@ public class ListOfParticipantFragment extends Fragment {
 
     Context context;
 
-    ArrayList<Place> myPlacesArray = new ArrayList<>();
+    ArrayList<Place> myPlacesArray;
 
     ProgressBar progressBar;
 
@@ -106,6 +106,7 @@ public class ListOfParticipantFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                myPlacesArray = new ArrayList<>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     Place place = dataSnapshot1.getValue(Place.class);
                     //Log.d("mylog", place.getNameStudent()+place.getPhone()+place.getRoll()+" ");

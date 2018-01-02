@@ -120,8 +120,11 @@ public class Home extends Fragment {
                             viewPager.setCurrentItem(1);
                         } else if (viewPager.getCurrentItem() == 1) {
                             viewPager.setCurrentItem(2);
-                        } else {
-                            viewPager.setCurrentItem(0);
+                        } else if (viewPager.getCurrentItem() == 2){
+                            viewPager.setCurrentItem(3);
+                        }
+                        else {
+                            viewPager.setCurrentItem(4);
                         }
 
 

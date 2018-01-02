@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ac.nita.advaitam4.R;
 
 /**
@@ -18,9 +20,9 @@ class PlaceArrayAdapter extends ArrayAdapter<Place> {
 
     Context mContext;
     int mLayoutResourceId;
-    Place mData[] = null;
+    ArrayList<Place> mData = new ArrayList<>();
 
-    public PlaceArrayAdapter(Context context, int row, Place[] myPlacesArray) {
+    public PlaceArrayAdapter(Context context, int row, ArrayList<Place> myPlacesArray) {
         super(context, row, myPlacesArray);
         this.mContext = context;
         this.mLayoutResourceId = row;
@@ -37,21 +39,21 @@ class PlaceArrayAdapter extends ArrayAdapter<Place> {
         View row = convertView;
         PlaceHolder holder = null;
         if(row==null){
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        row = inflater.inflate(mLayoutResourceId,parent,false);
-        holder = new PlaceHolder();
-        holder.nameView = (TextView) row.findViewById(ac.nita.advaitam4.R.id.rowTextView);
-        holder.enroll = (TextView) row.findViewById(R.id.rowSmallTextView);
-        holder.phoneNo = (TextView) row.findViewById(R.id.rowSmallTextView1);
-        holder.rowImage = (ImageView) row.findViewById(R.id.rowImageView);
-         row.setTag(holder);}
-         else {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            row = inflater.inflate(mLayoutResourceId,parent,false);
+            holder = new PlaceHolder();
+            holder.nameView = (TextView) row.findViewById(ac.nita.advaitam4.R.id.rowTextView);
+            holder.enroll = (TextView) row.findViewById(R.id.rowSmallTextView);
+            holder.phoneNo = (TextView) row.findViewById(R.id.rowSmallTextView1);
+            holder.rowImage = (ImageView) row.findViewById(R.id.rowImageView);
+            row.setTag(holder);}
+        else {
             holder = (PlaceHolder) row.getTag();
         }
-        Place place = mData[position];
-        holder.nameView.setText(place.nameOfStudent);
-        holder.enroll.setText(place.enroll);
-        holder.phoneNo.setText(place.phoneNo);
+        Place place = mData.get(position);
+        holder.nameView.setText(place.getNameStudent());
+        holder.enroll.setText(place.getRoll());
+        holder.phoneNo.setText(place.getPhone());
         return row;
     }
     private static class PlaceHolder {

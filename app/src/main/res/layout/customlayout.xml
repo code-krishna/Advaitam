@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="#ffc61e"
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
@@ -61,7 +61,7 @@
                 android:layout_alignStart="@+id/textView17"
                 android:layout_alignTop="@+id/imageView"
                 android:layout_marginTop="18dp"
-                android:text="Branch    :"
+                android:text="Name :"
                 android:textColor="#ffc61e" />
 
             <TextView
@@ -87,7 +87,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_toEndOf="@+id/imageView"
                 android:layout_toRightOf="@+id/imageView"
-                android:text="Enroll No :"
+                android:text="Branch :"
                 android:textColor="#ffc61e" />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_toLeftOf="@+id/textViewmobile"
                 android:layout_toStartOf="@+id/textViewmobile"
-                android:text="Mobile     :"
+                android:text="Enroll No :"
                 android:textColor="#ffc61e" />
 
             <TextView

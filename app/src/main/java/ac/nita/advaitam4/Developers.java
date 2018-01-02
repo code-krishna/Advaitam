@@ -48,7 +48,7 @@ public class Developers extends Fragment {
         String[] EMAIL = {"chayan.cse234@gmail.com", "krishna.pendiala@gmail.com", "subhamsahadeep@gmail.com", "subharajbhowmik@gmail.com", "hritikkumar.rd@gmail.com", "souravmandalm@gmail.com"};
 
 
-        CustomAdapter customAdapter = new CustomAdapter(getContext(), IMAGES, NAMES, BRANCH, ENROLL, MOBILE, EMAIL);
+        CustomAdapter customAdapter = new CustomAdapter(getActivity(), IMAGES, NAMES, BRANCH, ENROLL, MOBILE, EMAIL);
         listView.setAdapter(customAdapter);
 
 

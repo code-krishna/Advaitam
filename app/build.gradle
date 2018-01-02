@@ -24,8 +24,8 @@ android {
         }
         debug {
             debuggable true
-            minifyEnabled true
-            useProguard true
+            minifyEnabled false
+            useProguard false
         }
     }
 }

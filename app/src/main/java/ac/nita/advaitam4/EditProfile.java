@@ -94,46 +94,15 @@ public class EditProfile extends Fragment {
         mProgressDialog  = new ProgressDialog(getContext());
         storage          = FirebaseStorage.getInstance();
         mAuth            = FirebaseAuth.getInstance();
-        mUser            = mAuth.getCurrentUser();
-        database         = FirebaseDatabase.getInstance();
-        mRef             = database.getReference();
-        sRef             = storage.getReference();
-        uid              = mUser.getUid();
 
 
-        mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-//                    Log.d("valueName:", "DATA : "+ dataSnapshot);
-                    editor.putString("NAME",(String)dataSnapshot.child("name").getValue()).apply();
-                    editor.putString("CONTACT",(String)dataSnapshot.child("contact").getValue()).apply();
-                    editor.putString("ENROLL",(String)dataSnapshot.child("enroll").getValue()).apply();
-                    editor.putString("COLLEGE",(String)dataSnapshot.child("college").getValue()).apply();
-//                    editName.setText((String)dataSnapshot.child("name").getValue());
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
 
         editName.setText( preferences.getString("NAME","NAME"));
         editEnroll.setText( preferences.getString("ENROLL","ENROLL"));
         editNumber.setText(preferences.getString("CONTACT","CONTACT"));
 
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .priority(Priority.IMMEDIATE)
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .skipMemoryCache(true)
-                    .centerCrop()
-                    .error(R.drawable.ic_account_circle_black_24dp);
-            Glide.with(img.getContext())
-                    .load(mUser.getPhotoUrl())
-                    .apply(options)
-                    .into(img);
+
         return rootView;
     }
 
@@ -187,6 +156,68 @@ public class EditProfile extends Fragment {
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Edit Profile");
         //Button to save data
+
+
+
+
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                mUser            = firebaseAuth.getCurrentUser();
+                database         = FirebaseDatabase.getInstance();
+                mRef             = database.getReference();
+                sRef             = storage.getReference();
+
+                if(mUser==null)
+                    return;
+
+                uid              = mUser.getUid();
+
+
+
+
+
+                mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()) {
+//                    Log.d("valueName:", "DATA : "+ dataSnapshot);
+                            editor.putString("NAME",(String)dataSnapshot.child("name").getValue()).apply();
+                            editor.putString("CONTACT",(String)dataSnapshot.child("contact").getValue()).apply();
+                            editor.putString("ENROLL",(String)dataSnapshot.child("enroll").getValue()).apply();
+                            editor.putString("COLLEGE",(String)dataSnapshot.child("college").getValue()).apply();
+//                    editName.setText((String)dataSnapshot.child("name").getValue());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .priority(Priority.IMMEDIATE)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .skipMemoryCache(true)
+                        .centerCrop()
+                        .error(R.drawable.ic_account_circle_black_24dp);
+                Glide.with(img.getContext())
+                        .load(mUser.getPhotoUrl())
+                        .apply(options)
+                        .into(img);
+
+
+
+            }
+
+            });
+
+
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

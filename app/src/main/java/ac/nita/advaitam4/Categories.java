@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -82,28 +83,85 @@ public class Categories extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        FirebaseApp.initializeApp(this);
+
+
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        mAuth            = FirebaseAuth.getInstance();
-        user            = mAuth.getCurrentUser();
-        database         = FirebaseDatabase.getInstance();
-        mRef             = database.getReference();
-        if(user != null)
-        uid              = user.getUid();
+        mAuth = FirebaseAuth.getInstance();
+
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference();
+
+
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+
+                TextView navUsername = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+                TextView navEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_email);
+
+                user = firebaseAuth.getCurrentUser();
+
+                if(user==null)
+                    return;
+
+                uid = user.getUid();
+
+
+                navUsername.setText(user.getDisplayName());
+                navEmail.setText(user.getEmail());
+                if (user.getPhotoUrl() != null)
+                    profileImageUrl = user.getPhotoUrl().toString();
+                ImageView navImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.ic_account_circle_black_24dp)
+                        .error(R.drawable.ic_account_circle_black_24dp);
+                Glide.with(Categories.this).load(profileImageUrl).apply(options).into(navImage);
+
+                mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Log.d("valueName:", "DATA : " + dataSnapshot);
+                            editor.putString("NAME", (String) dataSnapshot.child("name").getValue()).apply();
+                            editor.putString("CONTACT", (String) dataSnapshot.child("contact").getValue()).apply();
+                            editor.putString("ENROLL", (String) dataSnapshot.child("enroll").getValue()).apply();
+                            editor.putString("COLLEGE", (String) dataSnapshot.child("college").getValue()).apply();
+                            editor.putString("ProfileImage_path", (String) dataSnapshot.child("download_uri").getValue()).apply();
+                            updateProfile(sharedPreferences.getString("NAME", " "), sharedPreferences.getString("ProfileImage_path", " "));
+                            Log.d("dataSnapshot", dataSnapshot.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        profile = true;
+                        startActivity(new Intent(Categories.this, Categories.class));
+                        Log.d("Profile Check ", "   checking  cancellled " + databaseError.toString());
+
+                    }
+                });
+
+            }
+        });
+
 
         progressDialog = new ProgressDialog(Categories.this);
         navigationView.setNavigationItemSelectedListener(this);
         sharedPreferences = this.getSharedPreferences("USER", 0);
         editor = sharedPreferences.edit();
 
-        FirebaseApp.initializeApp(this);
-
-        String profileImageUrl = user.getPhotoUrl().toString();
-
+        //String profileImageUrl = user.getPhotoUrl().toString();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -116,74 +174,60 @@ public class Categories extends AppCompatActivity
         progressDialog.setMessage("Profile is Updating");
         progressDialog.show();
 
-        mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    Log.d("valueName:", "DATA : "+ dataSnapshot);
-                    editor.putString("NAME",(String)dataSnapshot.child("name").getValue()).apply();
-                    editor.putString("CONTACT",(String)dataSnapshot.child("contact").getValue()).apply();
-                    editor.putString("ENROLL",(String)dataSnapshot.child("enroll").getValue()).apply();
-                    editor.putString("COLLEGE",(String)dataSnapshot.child("college").getValue()).apply();
-                    editor.putString("ProfileImage_path",(String)dataSnapshot.child("download_uri").getValue()).apply();
-                    updateProfile(sharedPreferences.getString("NAME"," "),sharedPreferences.getString("ProfileImage_path"," "));
-                    Log.d("dataSnapshot",dataSnapshot.toString());
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                profile = true;
-                startActivity(new Intent(Categories.this,Categories.class));
-                Log.d("Profile Check ", "   checking  cancellled "+ databaseError.toString());
 
-            }
-        });
+        name1 = sharedPreferences.getString("NAME", " ");
+        enroll1 = sharedPreferences.getString("ENROLL", " ");
+        cont1 = sharedPreferences.getString("CONTACT", " ");
 
 
-
-        name1 = sharedPreferences.getString("NAME"," ");
-        enroll1 = sharedPreferences.getString("ENROLL"," ");
-        cont1 = sharedPreferences.getString("CONTACT"," ");
-
-
-        if((name1.equals(" ") && enroll1.equals(" ") && cont1.equals(" "))){
+        if ((name1.equals(" ") && enroll1.equals(" ") && cont1.equals(" "))) {
             profile = false;
 
-        }else{
+        } else {
             profile = true;
         }
         progressDialog.dismiss();
-            Log.d("checking",name1 + "   " + enroll1 + "   " + cont1 +"  "+ profile );
+        Log.d("checking", name1 + "   " + enroll1 + "   " + cont1 + "  " + profile);
 
-            if (!profile) {
-                Log.d("Profile Check ", " Entered   checking  cancellled ");
-                Toast.makeText(getApplicationContext(), "Oops you didn't Completed Your Profile Yet !!", Toast.LENGTH_SHORT).show();
-                setFragment(new Home());
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_holder, new EditProfile()).addToBackStack("hii");
-                ft.commit();
+        if (!profile) {
+            Log.d("Profile Check ", " Entered   checking  cancellled ");
+            Toast.makeText(getApplicationContext(), "Oops you didn't Completed Your Profile Yet !!", Toast.LENGTH_SHORT).show();
+            setFragment(new Home());
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_holder, new EditProfile()).addToBackStack("hii");
+            ft.commit();
 
-            }else {
-                setFragment(new Home());
-            }
+        } else {
+            setFragment(new Home());
+        }
 
-        TextView navUsername = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
-        TextView navEmail =  navigationView.getHeaderView(0).findViewById(R.id.nav_email);
 
-        navUsername.setText(user.getDisplayName());
-        navEmail.setText(user.getEmail());
-        if(user.getPhotoUrl() != null)
-            profileImageUrl = user.getPhotoUrl().toString();
-        ImageView navImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .skipMemoryCache(true)
-                .placeholder(R.drawable.ic_account_circle_black_24dp)
-                .error(R.drawable.ic_account_circle_black_24dp);
-        Glide.with(this).load(profileImageUrl).apply(options).into(navImage); }
+
+    }
 //        progressDialog.dismiss();
 
+
+    public class LoadUserData extends AsyncTask<String,String,String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+    }
 
     private void updateProfile(String name, String profileImage_path) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

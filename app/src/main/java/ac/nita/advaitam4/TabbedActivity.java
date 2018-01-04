@@ -1,5 +1,6 @@
 package ac.nita.advaitam4;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,20 +10,34 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import Fragments.DescriptionFragment;
 import Fragments.ListOfParticipantFragment;
 import Fragments.OrganisersFragment;
+import Fragments.Place;
 import Fragments.ResultsFragment;
+import Info.CommonInfo;
 
 public class  TabbedActivity extends AppCompatActivity {
 
@@ -39,6 +54,9 @@ public class  TabbedActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+
+
+
     private ViewPager mViewPager;
     private CharSequence[] titles={"Info","Organisers","Results","Participants"};
     private boolean flag;
@@ -47,8 +65,10 @@ public class  TabbedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabbed);
 
+        sharedPreferences = this.getApplicationContext().getSharedPreferences("USER",0);
+
         Bundle bundle=getIntent().getExtras();
-        String idName=bundle.getString("KEY");
+        final String idName=bundle.getString("KEY");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,6 +84,7 @@ public class  TabbedActivity extends AppCompatActivity {
 
 
 
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(),titles,idName,flag);
 
@@ -72,18 +93,51 @@ public class  TabbedActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-
         Button registerButton = (Button) findViewById(R.id.register_button);
+
+        final Place[] place = new Place[1];
+        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Registration Activity Launch", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                progressBar.setVisibility(View.VISIBLE);
+                DatabaseReference eventReference = firebaseDatabase.getReference("data/events/"+"event123"+"/participants/"+user.getUid());
+                eventReference.setValue(new Place(sharedPreferences.getString("NAME", "NAME"), sharedPreferences.getString("ENROLL", "ENROLL"), sharedPreferences.getString("CONTACT", "CONTACT")), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        progressBar.setVisibility(View.GONE);
+                        if(databaseError==null){
+                            showDialogDox("You Have Been Succesfully Registered.");
+                        } else {
+                            showDialogDox("Sorry There Was A Problem With Your Registration.");
+                        }
+                    }
+                });
+
+
             }
         });
 
     }
 
+
+    public void showDialogDox(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(message)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

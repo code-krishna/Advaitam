@@ -30,6 +30,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

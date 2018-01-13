@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,10 +23,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.SearchView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,9 +63,10 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.bumptech.glide.request.RequestOptions;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class Categories extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -77,6 +82,9 @@ public class Categories extends AppCompatActivity
     String name1, enroll1, cont1,uid;
     private CallbackManager callbackManager;
     String profileImageUrl;
+
+    ArrayAdapter<String> arrayAdapter;
+    ListView searchLV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +106,20 @@ public class Categories extends AppCompatActivity
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference();
 
+        ArrayList<String> searchArrayList = new ArrayList<>();
+        searchArrayList.add("Robo War");
+        searchArrayList.add("Dumb Charades");
+        searchArrayList.add("Line Runner");
+        searchArrayList.add("Tech Race");
+        searchArrayList.add("Counter Strike");
+        searchArrayList.add("Beg Borrow Steal");
+        searchArrayList.add("Blind Date");
+        searchArrayList.add("Random Event");
+
+         searchLV = (ListView)findViewById(R.id.search_list_view);
+        //arrayAdapter = new ArrayAdapter<String>(Categories.this,android.R.layout.simple_list_item_1,searchArrayList);
+        arrayAdapter = new Adapters.SearchListAdapter(Categories.this,searchArrayList);
+        searchLV.setAdapter(arrayAdapter);
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
@@ -268,8 +290,33 @@ public class Categories extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.categories, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView)item.getActionView();
 
-        return true;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchLV.setVisibility(View.VISIBLE);
+                arrayAdapter.getFilter().filter(s);
+
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchLV.setVisibility(View.GONE);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -308,6 +355,12 @@ public class Categories extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
+
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
         if (id == R.id.nav_history) {
             fragment = new History();

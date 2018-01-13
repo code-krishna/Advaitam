@@ -113,7 +113,7 @@ public class  TabbedActivity extends AppCompatActivity {
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         progressBar.setVisibility(View.GONE);
                         if(databaseError==null){
-                            showDialogDox("You Have Been Succesfully Registered.");
+                            showDialogDox("You Have Been Successfully Registered.");
                         } else {
                             showDialogDox("Sorry There Was A Problem With Your Registration.");
                         }

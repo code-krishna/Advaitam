@@ -29,14 +29,14 @@
         android:text="@string/list_of_participants"
         android:textColor="#EEEEEE"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/myListView"
+        app:layout_constraintBottom_toTopOf="@+id/events_listview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <ListView
-        android:id="@+id/myListView"
+        android:id="@+id/events_listview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#000000"

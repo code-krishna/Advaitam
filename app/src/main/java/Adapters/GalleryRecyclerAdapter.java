@@ -103,6 +103,18 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecycler
     @Override
     public void onBindViewHolder(final MyHolder holder, final int position) {
 
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView1);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView2);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView3);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView4);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView5);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView6);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView7);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView8);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView9);
+        Glide.with(context).load(R.drawable.advaitam_4_logo).apply(options).into(holder.imageView10);
+
+        /*
         Glide.with(context).load(imageUrls[position][0]).apply(options).into(holder.imageView1);
         Glide.with(context).load(imageUrls[position][1]).apply(options).into(holder.imageView2);
         Glide.with(context).load(imageUrls[position][2]).apply(options).into(holder.imageView3);
@@ -113,7 +125,7 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecycler
         Glide.with(context).load(imageUrls[position][7]).apply(options).into(holder.imageView8);
         Glide.with(context).load(imageUrls[position][8]).apply(options).into(holder.imageView9);
         Glide.with(context).load(imageUrls[position][9]).apply(options).into(holder.imageView10);
-        
+        */
        
     }
 

@@ -365,14 +365,14 @@ public class Categories extends AppCompatActivity
         if (id == R.id.nav_history) {
             fragment = new History();
         } else if (id == R.id.nav_account) {
-
             fragment = new Profile();
-
         } else if (id == R.id.nav_home) {
             fragment = new Home();
         } else if (id == R.id.nav_events) {
-
-        }   else if (id == R.id.nav_quest) {
+            fragment = new Events();
+        }   else if (id == R.id.nav_gallery) {
+            fragment = new Gallery();
+        }  else if (id == R.id.nav_quest) {
             fragment = new Quest();
         }  else if (id == R.id.nav_qrscanner) {
             fragment = new QrScanner();

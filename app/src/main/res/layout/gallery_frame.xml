@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="380dp"
     android:layout_height="match_parent"
     android:layout_marginBottom="4dp"
     android:background="@color/colorPrimary"
@@ -8,6 +8,7 @@
 
 
     <LinearLayout
+        android:id="@+id/Linelayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -15,8 +16,7 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingStart="4dp"
-        android:weightSum="100"
-        android:id="@+id/Linelayout">
+        android:weightSum="100">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -55,6 +55,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,40 +66,6 @@
         android:paddingStart="4dp"
         android:weightSum="100">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_weight="50"
-        android:background="@color/yellow"
-        android:padding="3dp">
-
-        <ImageView
-            android:id="@+id/image_view3"
-            android:layout_width="match_parent"
-            android:layout_height="185dp"
-
-            android:scaleType="centerCrop"
-            android:src="@drawable/advaitam_4_logo" />
-
-    </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="191dp"
-        android:layout_weight="50"
-        android:orientation="vertical"
-        android:weightSum="100">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="50"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +76,7 @@
             android:padding="3dp">
 
             <ImageView
-                android:id="@+id/image_view4"
+                android:id="@+id/image_view3"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
 
@@ -118,81 +85,115 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:background="@color/yellow"
-            android:padding="3dp">
 
-            <ImageView
-                android:id="@+id/image_view5"
-                android:layout_width="match_parent"
-                android:layout_height="185dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="191dp"
+            android:layout_weight="50"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:scaleType="centerCrop"
-                android:src="@drawable/advaitam_4_logo" />
+                android:orientation="horizontal"
+                android:weightSum="100">
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="50"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
 
-    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/image_view4"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="50"
-        android:orientation="horizontal"
-        android:paddingTop="4dp"
-        android:weightSum="100"
-        android:layout_below="@+id/Linelayout"
-        android:id="@+id/Linelayout1">
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/advaitam_4_logo" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="50"
-            android:background="@color/yellow"
-            android:padding="3dp">
+                </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/image_view6"
-                android:layout_width="match_parent"
-                android:layout_height="185dp"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
 
-                android:scaleType="centerCrop"
-                android:src="@drawable/advaitam_4_logo" />
+                    <ImageView
+                        android:id="@+id/image_view5"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:layout_weight="50"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/advaitam_4_logo" />
 
-        </RelativeLayout>
+                </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:background="@color/yellow"
-            android:padding="3dp">
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/image_view7"
-                android:layout_width="match_parent"
-                android:layout_height="185dp"
+            <LinearLayout
+                android:id="@+id/Linelayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Linelayout"
                 android:layout_weight="50"
-                android:scaleType="centerCrop"
-                android:src="@drawable/advaitam_4_logo" />
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:weightSum="100">
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="50"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
 
-    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/image_view6"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
 
-</LinearLayout>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/advaitam_4_logo" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:background="@color/yellow"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:id="@+id/image_view7"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:layout_weight="50"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/advaitam_4_logo" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/padd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
@@ -204,8 +205,8 @@
 
         <ImageView
             android:id="@+id/image_view8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="left"
             android:layout_marginRight="3dp"
             android:layout_weight="33"
@@ -217,8 +218,8 @@
 
         <ImageView
             android:id="@+id/image_view9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="right"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
@@ -230,8 +231,8 @@
 
         <ImageView
             android:id="@+id/image_view10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_weight="33"
             android:background="@color/colorPrimaryDark"

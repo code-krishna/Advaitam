@@ -9,21 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import ac.nita.advaitam4.R;
-import android.app.Activity;
-import android.app.ActionBar;
-import android.os.Bundle;
+
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.FirebaseApp;
@@ -34,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -138,7 +125,7 @@ public class ListOfParticipantFragment extends Fragment {
                  //Place[] toArrayPlaces = new Place[myPlacesArray.size()];
                  //myPlacesArray.toArray(toArrayPlaces);
 
-                ListView mListView = (ListView) view.findViewById(R.id.myListView);
+                ListView mListView = (ListView) view.findViewById(R.id.events_listview);
                 PlaceArrayAdapter mArrayAdapter = new PlaceArrayAdapter(getActivity(), R.layout.row, myPlacesArray);
                 mListView.setAdapter(mArrayAdapter);
 

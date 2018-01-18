@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * Created by sourav9674 on 12/13/2017.
  */
@@ -70,7 +72,9 @@ class CustomAdapter extends ArrayAdapter {
         {
             holder = (PlaceHolder) view.getTag();
         }
-        holder.imageView.setImageResource(IMAGES[i]);
+
+        Glide.with(context).load(IMAGES[i]).into(holder.imageView);
+        //holder.imageView.setImageResource(IMAGES[i]);
         holder.textViewname.setText(NAMES[i]);
         holder.textViewbranch.setText(BRANCH[i]);
         holder.textViewenroll.setText(ENROLL[i]);

@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -107,6 +108,10 @@ public class Login extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.MyToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ImageView bgHeader = (ImageView)findViewById(R.id.bgheader);
+        Glide.with(Login.this).load(R.drawable.advaitam_4_logo).into(bgHeader);
+
 
         Context context = this;
         FacebookSdk.sdkInitialize(getApplicationContext());

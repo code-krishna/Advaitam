@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -94,6 +95,7 @@ public class Login extends AppCompatActivity {
     private DatabaseReference ref;
     private CallbackManager callbackManager;
     private Button mFacebookBtn;
+    private SignInButton signInButton;
     private FirebaseUser user;
     private ProgressDialog progressDialog;
     private SharedPreferences preferences;
@@ -250,7 +252,7 @@ public class Login extends AppCompatActivity {
 
 
         ref.addValueEventListener(valueEventListener);
-        SignInButton signInButton = (SignInButton) findViewById(R.id.google_signin);
+         signInButton = (SignInButton)findViewById(R.id.google_signin);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,6 +291,31 @@ public class Login extends AppCompatActivity {
                         Log.d("Facebook Error "," : "+ error);
                     }
                 });
+            }
+        });
+
+
+        ImageButton fbLoginButton = (ImageButton)findViewById(R.id.fb_login_button);
+        ImageButton googleLoginButton = (ImageButton)findViewById(R.id.google_login_button);
+        fbLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFacebookBtn.performClick();
+            }
+        });
+
+        googleLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d("mylog", "onclick registeres");
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    signIn();
+                } else {
+
+
+                }
             }
         });
     }

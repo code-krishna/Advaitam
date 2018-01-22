@@ -9,12 +9,12 @@
             android:orientation="vertical">
 
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:background="@android:color/black"
-                android:paddingTop="50dp">
+                android:gravity="center_horizontal">
 
                 <Button
                     android:id="@+id/select_login"
@@ -40,8 +40,6 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginRight="36dp"
                     android:background="@drawable/unselected_button"
                     android:text="Register"
                     android:textColor="@color/yellow"
@@ -108,19 +106,51 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/google_signin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/login_button"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/login_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="33dp"
+            android:tooltipText=""
+            android:visibility="gone" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/fb_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/google_signin"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp" />
+            android:layout_marginTop="23dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="280dp"
+            android:foregroundGravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <ImageButton
+                android:id="@+id/fb_login_button"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginRight="15dp"
+                android:background="@android:color/black"
+                android:scaleType="fitXY"
+                android:src="@drawable/fb_logo_transparent_jpeg" />
+
+            <ImageButton
+                android:id="@+id/google_login_button"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:color/black"
+                android:scaleType="fitXY"
+                android:src="@drawable/google_logo_transparent_jpeg" />
+
+        </LinearLayout>
 
 
     </RelativeLayout>

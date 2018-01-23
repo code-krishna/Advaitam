@@ -1,8 +1,10 @@
 package ac.nita.advaitam4;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -22,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,12 +35,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+import java.util.Map;
+
 import Fragments.DescriptionFragment;
 import Fragments.ListOfParticipantFragment;
 import Fragments.OrganisersFragment;
 import Fragments.Place;
 import Fragments.ResultsFragment;
 import Info.CommonInfo;
+import Info.EventsData;
 
 public class  TabbedActivity extends AppCompatActivity {
 
@@ -55,8 +62,7 @@ public class  TabbedActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
 
-
-
+    private EventsData data;
     private ViewPager mViewPager;
     private CharSequence[] titles={"Info","Organisers","Results","Participants"};
     private boolean flag;
@@ -68,10 +74,12 @@ public class  TabbedActivity extends AppCompatActivity {
         sharedPreferences = this.getApplicationContext().getSharedPreferences("USER",0);
 
         Bundle bundle=getIntent().getExtras();
-        final String idName=bundle.getString("KEY");
+        final String idName = bundle.getString("KEY");
+        data = bundle.getParcelable("object");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -81,7 +89,12 @@ public class  TabbedActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         //mViewPager = (ViewPager) findViewById(R.id.viewpager);
         //mViewPager.setAdapter(mSectionsPagerAdapter);
-
+//        Intent intent = new Intent();
+//        EventsData data = (EventsData)this.getIntent().getSerializableExtra("object");
+        // b = intent.getBundleExtra("bundle");
+        //if(data != null)
+            //Toast.makeText(getApplicationContext(),data.toString(),Toast.LENGTH_SHORT).show();
+          //  Log.d("myTag1",data.getName());
 
 
 
@@ -119,8 +132,6 @@ public class  TabbedActivity extends AppCompatActivity {
                         }
                     }
                 });
-/**/
-
             }
         });
 
@@ -278,20 +289,37 @@ public class  TabbedActivity extends AppCompatActivity {
             if (position == 0)
             {
                 DescriptionFragment descriptionFragment= new DescriptionFragment();
-                Bundle bundle=new Bundle();
-                bundle.putString("KEY",idName);
+                Bundle bundle = new Bundle();
+                bundle.putString("DESC",data.getDescription());
+                bundle.putString("NAME",data.getName());
+                bundle.putString("DATE",data.getDate());
+                bundle.putString("TIME",data.getTime());
+
                 descriptionFragment.setArguments(bundle);
                 return descriptionFragment;
             }
             else
             if (position == 1)
             {
+                OrganisersFragment organisersFragment = new OrganisersFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("KEY2",idName);
+                organisersFragment.setArguments(bundle1);
                 return new OrganisersFragment();
             }
             if (position == 2)
             {
+                ResultsFragment result = new ResultsFragment();
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("KEY3",idName);
+                result.setArguments(bundle2);
                 return new ResultsFragment();
             }else{
+                ListOfParticipantFragment listOfParticipantFragment = new ListOfParticipantFragment();
+                Bundle bundle3 = new Bundle();
+                bundle3.putSerializable("K", (Serializable) data.getListOfParticipants());
+                Log.d("TAG",bundle3.getSerializable("K").toString());
+                listOfParticipantFragment.setArguments(bundle3);
                 return new ListOfParticipantFragment();
             }
 

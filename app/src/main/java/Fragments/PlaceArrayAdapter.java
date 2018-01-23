@@ -12,10 +12,6 @@ import java.util.ArrayList;
 
 import ac.nita.advaitam4.R;
 
-/**
- * Created by HP on 12/29/2017.
- */
-
 class PlaceArrayAdapter extends ArrayAdapter<Place> {
 
     Context mContext;

@@ -98,9 +98,9 @@ public class EditProfile extends Fragment {
 
 
 
-        editName.setText( preferences.getString("NAME","NAME"));
-        editEnroll.setText( preferences.getString("ENROLL","ENROLL"));
-        editNumber.setText(preferences.getString("CONTACT","CONTACT"));
+        editName.setHint( preferences.getString("NAME","NAME"));
+        editEnroll.setHint( preferences.getString("ENROLL","ENROLL"));
+        editNumber.setHint(preferences.getString("CONTACT","CONTACT"));
 
 
         return rootView;
@@ -124,6 +124,7 @@ public class EditProfile extends Fragment {
             user_info user_data = new user_info(uid,name,enroll,number,uri.toString(),spinnerItem);
             Log.d("data" ,"" +user_data.getUid()+"  "+user_data.getName()+"  "+user_data.getContact()+"  "+user_data.getEnroll()+"  "+user_data.getDownload_uri() + user_data.getCollege());
             mRef.child("USER").child(uid).setValue(user_data);
+//            Log.d("tag","msg "+user_data);
             updateProfile(name,uri);
             Log.d("user data" ,"msg "+ user_data.getName()+ user_data.getEnroll() + user_data.getContact() + spinnerItem);
             Toast.makeText(getActivity()," Uploaded ",Toast.LENGTH_SHORT).show();
@@ -171,12 +172,7 @@ public class EditProfile extends Fragment {
 
                 if(mUser==null)
                     return;
-
                 uid              = mUser.getUid();
-
-
-
-
 
                 mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
                     @Override

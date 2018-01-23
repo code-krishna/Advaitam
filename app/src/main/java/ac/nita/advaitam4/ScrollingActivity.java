@@ -1,6 +1,7 @@
 package ac.nita.advaitam4;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,7 +26,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private ActionBar mActionBar;
     private TextView actionBarText;
-
+    String p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,8 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = new Intent();
+        //p = intent.getStringExtras("1");
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.advaitam_image_1);
         final BitmapDrawable bd = new BitmapDrawable(bitmap);

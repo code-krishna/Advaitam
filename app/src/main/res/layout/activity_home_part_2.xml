@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="ac.nita.advaitam4.MainActivity"
-    android:background="#000000">
+    android:background="#000">
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
@@ -22,6 +25,7 @@
         android:paddingBottom="8dp"
         android:orientation="horizontal"
         android:gravity="center_vertical|center_horizontal"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,17 +37,35 @@
             android:textColor="#ffffff"
             android:paddingLeft="5dp"
             android:padding="20dp"/>
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:id="@+id/rec1"
-        android:layout_below="@+id/cultural"
-        android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:indeterminate="true"
+            android:layout_below="@+id/cultural" />
+        <android.support.v7.widget.CardView
+            android:background="#000"
+            app:cardBackgroundColor="#000"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/progress_bar1"
+            android:id="@+id/card_rec1"
+            android:layout_height="190dp">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:id="@+id/rec1"
+            android:layout_below="@+id/cultural"
+            android:layout_height="wrap_content"/>
+        </android.support.v7.widget.CardView>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/technical"
-            android:layout_below="@+id/rec1"
+            android:layout_below="@+id/card_rec1"
             android:text="TECHNICAL EVENTS"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textSize="18dp"
@@ -51,27 +73,63 @@
             android:padding="20dp"
             android:paddingLeft="5dp"
             tools:ignore="RtlSymmetry" />
+        <ProgressBar
+            android:id="@+id/progress_bar2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:indeterminate="true"
+            android:layout_below="@+id/technical" />
 
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:id="@+id/card_rec2"
+        android:background="#000"
+        android:layout_below="@+id/progress_bar2"
+        >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rec2"
-        android:layout_below="@+id/technical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+</RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sports"
-            android:layout_below="@+id/rec2"
+            android:layout_below="@+id/card_rec2"
             android:text="SPORTS EVENTS"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textSize="18dp"
             android:textColor="#ffffff"
             android:padding="20dp"
             android:paddingLeft="5dp"/>
+        <ProgressBar
+            android:id="@+id/progress_bar3"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:indeterminate="true"
+            android:layout_below="@+id/sports" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:id="@+id/relative3"
+    android:background="#000"
+    android:layout_below="@+id/progress_bar3"
+    >
+    <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:id="@+id/card_rec3"
+            android:layout_height="190dp">
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
-        android:layout_below="@+id/sports"
         android:id="@+id/rec3"
         android:layout_height="wrap_content"/>
+        </android.support.v7.widget.CardView>
+</RelativeLayout>
 </RelativeLayout>
 </ScrollView>

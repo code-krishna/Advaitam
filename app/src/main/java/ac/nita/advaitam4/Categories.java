@@ -78,11 +78,11 @@ public class Categories extends AppCompatActivity
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     boolean profile ;
-    private ProgressDialog progressDialog;
+
     String name1, enroll1, cont1,uid;
     private CallbackManager callbackManager;
     String profileImageUrl;
-
+    private ProgressDialog progressDialog;
     ArrayAdapter<String> arrayAdapter;
     ListView searchLV;
 
@@ -91,7 +91,7 @@ public class Categories extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-
+        progressDialog = new ProgressDialog(getApplicationContext());
         FirebaseApp.initializeApp(this);
 
 
@@ -116,8 +116,7 @@ public class Categories extends AppCompatActivity
         searchArrayList.add("Blind Date");
         searchArrayList.add("Random Event");
 
-         searchLV = (ListView)findViewById(R.id.search_list_view);
-        //arrayAdapter = new ArrayAdapter<String>(Categories.this,android.R.layout.simple_list_item_1,searchArrayList);
+        searchLV = (ListView)findViewById(R.id.search_list_view);
         arrayAdapter = new Adapters.SearchListAdapter(Categories.this,searchArrayList);
         searchLV.setAdapter(arrayAdapter);
 
@@ -125,23 +124,20 @@ public class Categories extends AppCompatActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-
+                progressDialog.setMessage("Wait ! While data is Uploading....");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
                 TextView navUsername = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
                 TextView navEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_email);
-
                 user = firebaseAuth.getCurrentUser();
-
                 if(user==null)
                     return;
-
                 uid = user.getUid();
-
-
                 navUsername.setText(user.getDisplayName());
                 navEmail.setText(user.getEmail());
                 if (user.getPhotoUrl() != null)
                     profileImageUrl = user.getPhotoUrl().toString();
-                ImageView navImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
+                ImageView navImage = navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
                 RequestOptions options = new RequestOptions()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -154,6 +150,8 @@ public class Categories extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
+                            progressDialog.setCancelable(true);
+                            progressDialog.dismiss();
                             Log.d("valueName:", "DATA : " + dataSnapshot);
                             editor.putString("NAME", (String) dataSnapshot.child("name").getValue()).apply();
                             editor.putString("CONTACT", (String) dataSnapshot.child("contact").getValue()).apply();
@@ -164,16 +162,13 @@ public class Categories extends AppCompatActivity
                             Log.d("dataSnapshot", dataSnapshot.toString());
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         profile = true;
                         startActivity(new Intent(Categories.this, Categories.class));
                         Log.d("Profile Check ", "   checking  cancellled " + databaseError.toString());
-
                     }
                 });
-
             }
         });
 
@@ -214,19 +209,16 @@ public class Categories extends AppCompatActivity
         if (!profile) {
             Log.d("Profile Check ", " Entered   checking  cancellled ");
             Toast.makeText(getApplicationContext(), "Oops you didn't Completed Your Profile Yet !!", Toast.LENGTH_SHORT).show();
-            setFragment(new Home());
+            setFragment(new HomePart2());
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_holder, new EditProfile()).addToBackStack("hii");
+
             ft.commit();
 
         } else {
-            setFragment(new Home());
+            setFragment(new HomePart2());
         }
-
-
-
     }
-//        progressDialog.dismiss();
 
 
     public class LoadUserData extends AsyncTask<String,String,String>{
@@ -274,14 +266,11 @@ public class Categories extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            setFragment(new Home());
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_holder, new EditProfile()).addToBackStack("hii");
-            ft.commit();
+            setFragment(new HomePart2());
             super.onBackPressed();
         }
     }
@@ -365,11 +354,9 @@ public class Categories extends AppCompatActivity
         if (id == R.id.nav_history) {
             fragment = new History();
         } else if (id == R.id.nav_account) {
-
             fragment = new Profile();
-
         } else if (id == R.id.nav_home) {
-            fragment = new Home();
+            fragment = new HomePart2();
         } else if (id == R.id.nav_events) {
 
         }   else if (id == R.id.nav_quest) {

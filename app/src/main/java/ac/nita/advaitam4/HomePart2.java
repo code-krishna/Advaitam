@@ -1,5 +1,6 @@
 package ac.nita.advaitam4;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,28 +24,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import Adapters.ImageRecyclerViewAdapters;
+import Info.CulturalInfo;
 import Info.EventsData;
-
-/**
- * Created by HRITIK on 12/24/2017.
- */
 
 public class HomePart2 extends Fragment{
     private RecyclerView recyclerView1,recyclerView2,recyclerView3;
     private RecyclerView.LayoutManager llm1,llm2,llm3;
-    private List<EventsData> values1,values2,values3 ;
-    private Integer [] images = {R.drawable.gate,R.drawable.dj,R.drawable.cultural,R.drawable.robot,R.drawable.sports};
-
+    public List<EventsData> values1 = new ArrayList<>(),values2 = new ArrayList<>(),values3 = new ArrayList<>();
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
-
-
-
+    ProgressBar progressBar,progressBar1,progressBar2;
+    ImageRecyclerViewAdapters adapter1,adapter2,adapter3;
 
     public HomePart2(){
 
@@ -51,6 +49,9 @@ public class HomePart2 extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.activity_home_part_2,container,false);
+        progressBar = (ProgressBar)rootView.findViewById(R.id.progress_bar1);
+        progressBar1 = (ProgressBar)rootView.findViewById(R.id.progress_bar2);
+        progressBar2 = (ProgressBar)rootView.findViewById(R.id.progress_bar3);
         return rootView;
     }
 
@@ -66,10 +67,9 @@ public class HomePart2 extends Fragment{
         startActivity(in);
     }
 
-
-
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState){
+
         super.onViewCreated(view,savedInstanceState);
 
         getActivity().setTitle("Home");
@@ -78,6 +78,8 @@ public class HomePart2 extends Fragment{
         mRef = mDatabase.getReference();
 
         PACKAGE_NAME = getContext().getPackageName();
+       // progressDialog = new ProgressDialog(getActivity());
+
 
         viewPager =(ViewPager) view.findViewById(R.id.viewPager);
         sliderDotspanel = (LinearLayout) view.findViewById(R.id.SliderDots);
@@ -93,8 +95,9 @@ public class HomePart2 extends Fragment{
         for(int i=0;i<dotscount;i++)
         {
             dots[i]=new ImageView(getContext());
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.nonactive));
-            LinearLayout.LayoutParams params=new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive));
+            LinearLayout.LayoutParams params=new  LinearLayout.LayoutParams( LinearLayout.LayoutParams
+                    .WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT );
             params.setMargins(8,0,8,0);
             sliderDotspanel.addView(dots[i], params);
         }
@@ -110,59 +113,54 @@ public class HomePart2 extends Fragment{
                     dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.nonactive));
                 }
                 dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.active));
-
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
 
-        mRef.child("EVENTS_INFO").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    EventsData values1 = dataSnapshot.child("CULTURAL_INFO").getValue(EventsData.class);
-                    EventsData values2 = dataSnapshot.child("TECHNICAL_INFO").getValue(EventsData.class);
-                    EventsData values3 = dataSnapshot.child("SPORTS_INFO").getValue(EventsData.class);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+        EventsData[] info = {
+                new EventsData("AA-BB-CCCC", "TECHNICAL 1 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","" ,new HashMap<String, String>()  , "Technical Event 1", "HH:MM:SS")
+        };
+        values1.add(info[0]);
+        values2.add(info[0]);
+        values3.add(info[0]);
+
 
         recyclerView1 = view.findViewById(R.id.rec1);
         recyclerView2 = view.findViewById(R.id.rec2);
         recyclerView3 = view.findViewById(R.id.rec3);
         recyclerView1.setHasFixedSize(true); recyclerView2.setHasFixedSize(true); recyclerView3.setHasFixedSize(true);
-        llm1 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-        llm2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-        llm3 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-
-        recyclerView1.setLayoutManager(llm1);
-        recyclerView2.setLayoutManager(llm2);
-        recyclerView3.setLayoutManager(llm3);
-
-        ImageRecyclerViewAdapters adapter1 = new ImageRecyclerViewAdapters(getActivity(),values1);
-        ImageRecyclerViewAdapters adapter2 = new ImageRecyclerViewAdapters(getActivity(),values2);
-        ImageRecyclerViewAdapters adapter3 = new ImageRecyclerViewAdapters(getActivity(),values3);
-
-        recyclerView1.setAdapter(adapter1);
-        recyclerView2.setAdapter(adapter2);
-        recyclerView3.setAdapter(adapter3);
 
 
 
+        readData(new MyCallback() {
+            @Override
+            public void onCallback(List<EventsData> value,List<EventsData> value2,List<EventsData> value3) {
 
 
+                adapter1 = new ImageRecyclerViewAdapters(getActivity(),values1);
+                adapter2 = new ImageRecyclerViewAdapters(getActivity(),values2);
+                adapter3 = new ImageRecyclerViewAdapters(getActivity(),values3);
+                llm1 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+                llm2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+                llm3 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
 
+                Log.d("tag","myData4 "+ values1);
+                recyclerView1.setLayoutManager(llm1);
+                recyclerView2.setLayoutManager(llm2);
+                recyclerView3.setLayoutManager(llm3);
 
-
-
+                recyclerView1.setAdapter(adapter1);
+                recyclerView2.setAdapter(adapter2);
+                recyclerView3.setAdapter(adapter3);
+                progressBar.setVisibility(View.GONE);
+                progressBar1.setVisibility(View.GONE);
+                progressBar2.setVisibility(View.GONE);
+            }
+        });
 
 
     }
@@ -188,38 +186,39 @@ public class HomePart2 extends Fragment{
         }
     }
 
-    ChildEventListener childEventListener = new ChildEventListener() {
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
+    public void readData(final MyCallback myCallback) {
+        mRef.child("EVENTS_INFO").addValueEventListener(new ValueEventListener() {
 
 
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar1.setVisibility(View.VISIBLE);
+                progressBar2.setVisibility(View.VISIBLE);
+                if (dataSnapshot.exists()) {
+//                    progressDialog.dismiss();
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.child("CULTURAL_INFO").getChildren()) {
+                        EventsData p = dataSnapshot1.getValue(EventsData.class);
+                        values1.add(p);
+                    }
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.child("SPORTS_INFO").getChildren()) {
+                        values2.add(dataSnapshot1.getValue(EventsData.class));
+                    }
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.child("TECHNICAL_INFO").getChildren()) {
+                        values3.add(dataSnapshot1.getValue(EventsData.class));
+                    }
+                    myCallback.onCallback(values1,values2,values3);
+                    Log.d("tag", "myData3 " + values1);
+                }else{
+                                                   }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
 
-
-
-
-
+    }
 }

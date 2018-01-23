@@ -76,7 +76,10 @@ public class Profile extends Fragment {
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser() != null)
         uid = mAuth.getCurrentUser().getUid();
+
         user = mAuth.getCurrentUser();
 
         mProgressDialog = new ProgressDialog(getActivity());

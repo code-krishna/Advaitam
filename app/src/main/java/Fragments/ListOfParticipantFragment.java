@@ -1,6 +1,7 @@
 package Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -33,8 +35,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -45,7 +50,7 @@ import java.util.concurrent.ExecutionException;
 public class ListOfParticipantFragment extends Fragment {
 
     Context context;
-
+  //  Map<String ,String> map = new HashMap<>();
     ArrayList<Place> myPlacesArray;
 
     ProgressBar progressBar;
@@ -76,7 +81,7 @@ public class ListOfParticipantFragment extends Fragment {
         FirebaseApp.initializeApp(getContext());
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = rootRef.child("data/events/event1/participants");
-
+//
 /*
         Place[] myPlacesArray = new Place[]{
                 new Place("Art House" , "15UCS037" ,"1234567890"),
@@ -134,16 +139,12 @@ public class ListOfParticipantFragment extends Fragment {
 */
 
                 Log.d("mylog", " Arraylist size is "+myPlacesArray.size());
-
                  //Place[] toArrayPlaces = new Place[myPlacesArray.size()];
                  //myPlacesArray.toArray(toArrayPlaces);
-
                 ListView mListView = (ListView) view.findViewById(R.id.myListView);
                 PlaceArrayAdapter mArrayAdapter = new PlaceArrayAdapter(getActivity(), R.layout.row, myPlacesArray);
                 mListView.setAdapter(mArrayAdapter);
-
                 progressBar.setVisibility(View.GONE);
-
 
             }
 

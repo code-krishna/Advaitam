@@ -25,7 +25,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:background="#ffc61e"
+                android:background="#000"
                 android:cropToPadding="true"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
@@ -50,7 +50,8 @@
                 android:layout_weight=".85"
                 android:text="Name"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="#ffc61e" />
+                android:textColor="#ffc61e"
+                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/editTextName"
@@ -85,7 +86,8 @@
                 android:gravity="center_vertical"
                 android:text="Enroll"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="#ffc61e" />
+                android:textColor="#ffc61e"
+                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/editTextEnroll"
@@ -118,7 +120,8 @@
                 android:layout_weight=".85"
                 android:text="College"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="#ffc61e" />
+                android:textColor="#ffc61e"
+                android:textStyle="italic" />
 
             <Spinner
                 android:id="@+id/spinnerEdit"
@@ -150,7 +153,8 @@
                 android:layout_weight=".85"
                 android:text="Mobile"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="#ffc61e" />
+                android:textColor="#ffc61e"
+                android:textStyle="italic" />
 
             <EditText
                 android:id="@+id/editTextContact"

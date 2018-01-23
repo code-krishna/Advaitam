@@ -1,73 +1,135 @@
 package Info;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by HRITIK on 12/24/2017.
  */
 
-public class EventsData {
+public class EventsData implements Parcelable {
 
-    private String desc;
-    private String name;
-    private String date;
-    private String time;
-    private String ImagesUri;
-    public EventsData( String name, String date, String time, String desc,String ImagesUri) {
-        this.desc = desc;
-        this.name = name;
-        this.date = date;
-        this.time = time;
-        this.ImagesUri = ImagesUri;
+    EventsData(){}
+
+    private String Date;
+    private String Description;
+    private String ImageUri;
+    private Map<String,String> ListOfParticipants = new HashMap<>();
+    private String Name;
+    private String Time;
+
+    public String getDescription() {
+        return Description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Map<String, String> getListOfParticipants() {
+        return ListOfParticipants;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setListOfParticipants(Map<String, String> listOfParticipants) {
+        ListOfParticipants = listOfParticipants;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public String getImageUri() {
+        return ImageUri;
     }
 
-    public String getImagesUri() {
-        return ImagesUri;
+    public void setImageUri(String imageUri) {
+        ImageUri = imageUri;
     }
 
-    public void setImagesUri(String imagesUri) {
-        ImagesUri = imagesUri;
-    }
+    public EventsData(String date, String desc, String Imagesuri, Map<String,String> parti , String name, String time) {
 
-    public static final EventsData[] cInfo={
-            new EventsData("Technical Event 1","AA-BB-CCCC","HH:MM:SS", "TECHNICAL 1 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","https://"),
-            new EventsData("Technical Event 2","AA-BB-CCCC","HH:MM:SS", "TECHNICAL 2 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","https://"),
-            new EventsData("Technical Event 3","AA-BB-CCCC","HH:MM:SS", "TECHNICAL 3 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","https://"),
-            new EventsData("Technical Event 4","AA-BB-CCCC","HH:MM:SS", "TECHNICAL 4 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","https://"),
-            new EventsData("Technical Event 5","AA-BB-CCCC","HH:MM:SS", "TECHNICAL 5 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","https://"),
-    };
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public String getName() {
-        return name;
+         Map<String,String> list =new  HashMap<>();
+         this.Date = date;
+         this.Description = desc;
+         this.ImageUri = Imagesuri;
+         this.ListOfParticipants = parti;
+         this.Name = name;
+         this.Time = time;
     }
 
     public String getDate() {
-        return date;
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 
     public String getTime() {
-        return time;
+        return Time;
     }
 
-    public static EventsData[] getcInfo() {
-        return cInfo;
+    public void setTime(String time) {
+        Time = time;
     }
+
+
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.Date);
+        dest.writeString(this.Description);
+        dest.writeString(this.ImageUri);
+        dest.writeInt(this.ListOfParticipants.size());
+        for (Map.Entry<String, String> entry : this.ListOfParticipants.entrySet()) {
+            dest.writeString(entry.getKey());
+            dest.writeString(entry.getValue());
+        }
+        dest.writeString(this.Name);
+        dest.writeString(this.Time);
+    }
+
+    protected EventsData(Parcel in) {
+        this.Date = in.readString();
+        this.Description = in.readString();
+        this.ImageUri = in.readString();
+        int ListOfParticipantsSize = in.readInt();
+        this.ListOfParticipants = new HashMap<String, String>(ListOfParticipantsSize);
+        for (int i = 0; i < ListOfParticipantsSize; i++) {
+            String key = in.readString();
+            String value = in.readString();
+            this.ListOfParticipants.put(key, value);
+        }
+        this.Name = in.readString();
+        this.Time = in.readString();
+    }
+
+    public static final Creator<EventsData> CREATOR = new Creator<EventsData>() {
+        @Override
+        public EventsData createFromParcel(Parcel source) {
+            return new EventsData(source);
+        }
+
+        @Override
+        public EventsData[] newArray(int size) {
+            return new EventsData[size];
+        }
+    };
 }

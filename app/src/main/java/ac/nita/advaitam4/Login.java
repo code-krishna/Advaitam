@@ -90,14 +90,15 @@ public class Login extends AppCompatActivity {
     private GoogleSignInOptions gso;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference ref;
+    private DatabaseReference ref,mRef;
     private CallbackManager callbackManager;
     private Button mFacebookBtn;
-    private FirebaseUser user;
+    private FirebaseUser user,user1;
     private ProgressDialog progressDialog;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private Uri imageuri = null;
+    private String uid;
     private AuthCredential credential;
 
     @Override
@@ -117,6 +118,7 @@ public class Login extends AppCompatActivity {
         editor = preferences.edit();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         ref = database.getReference("users");
+        mRef = database.getReference();
         mFacebookBtn = findViewById(R.id.fb_login);
         mAuth = FirebaseAuth.getInstance();
 
@@ -487,7 +489,7 @@ public class Login extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Log.w(TAG, "signInWithCredential", task.getException());
                                 Toast.makeText(Login.this, "Authentication failed."+ task.getException(), Toast.LENGTH_SHORT).show();
-                                updateUI();
+                                //updateUI();
                             }
                         }
                     });
@@ -528,8 +530,45 @@ public class Login extends AppCompatActivity {
     private void updateUI() {
         Log.d("Fb Login ","u are logged in");
         editor.putString("Signed in via fb or google","true");
+        user1 = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null) {
+            uid = user1.getUid();
+            progressDialog.setMessage("Loading Data");
+            progressDialog.show();
+            fetchData();
+        }
         startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         finish();
+    }
+
+    private void fetchData() {
+        mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    progressDialog.setCancelable(true);
+                    progressDialog.dismiss();
+                    Log.d("valueName:", "DATA : " + dataSnapshot);
+                    editor.putString("NAME", (String) dataSnapshot.child("name").getValue()).apply();
+                    editor.putString("CONTACT", (String) dataSnapshot.child("contact").getValue()).apply();
+                    editor.putString("ENROLL", (String) dataSnapshot.child("enroll").getValue()).apply();
+                    editor.putString("COLLEGE", (String) dataSnapshot.child("college").getValue()).apply();
+                    editor.putString("ProfileImage_path", (String) dataSnapshot.child("download_uri").getValue()).apply();
+                    //updateProfile(sharedPreferences.getString("NAME", " "), sharedPreferences.getString("ProfileImage_path", " "));
+                    Log.d("dataSnapshot", dataSnapshot.toString());
+
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //profile = true;
+                //startActivity(new Intent(Categories.this, Categories.class));
+                //Log.d("Profile Check ", "   checking  cancellled " + databaseError.toString());
+            }
+
+        });
+        progressDialog.dismiss();
     }
 
     private void getFbInfo() {

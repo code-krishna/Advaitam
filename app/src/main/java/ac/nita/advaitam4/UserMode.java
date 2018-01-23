@@ -13,7 +13,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,6 +33,9 @@ public class UserMode extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.MyToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ImageView bgHeader = (ImageView)findViewById(R.id.bgheader);
+        Glide.with(UserMode.this).load(R.drawable.advaitam_4_logo).into(bgHeader);
 
         sharedPreferences = getSharedPreferences("USER",MODE_PRIVATE);
         editor = sharedPreferences.edit();

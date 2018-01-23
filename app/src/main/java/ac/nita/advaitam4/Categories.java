@@ -358,8 +358,10 @@ public class Categories extends AppCompatActivity
         } else if (id == R.id.nav_home) {
             fragment = new HomePart2();
         } else if (id == R.id.nav_events) {
-
-        }   else if (id == R.id.nav_quest) {
+            fragment = new Events();
+        }   else if (id == R.id.nav_gallery) {
+            fragment = new Gallery();
+        }  else if (id == R.id.nav_quest) {
             fragment = new Quest();
         }  else if (id == R.id.nav_qrscanner) {
             fragment = new QrScanner();

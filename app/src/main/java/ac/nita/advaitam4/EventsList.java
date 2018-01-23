@@ -1,21 +1,19 @@
 package ac.nita.advaitam4;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import Adapters.GalleryRecyclerAdapter;
+import Fragments.EventsClass;
 import Fragments.Place;
+import ac.nita.advaitam4.R;
 
 import android.util.Log;
 import android.widget.ListView;
@@ -29,21 +27,22 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 
 /**
- * Created by sourav8256 on 12/18/2017.
+ * Created by HRITIK on 12/18/2017.
  */
 
-public class Gallery extends Fragment {
+public class EventsList extends Fragment {
 
     Context context;
 
-    ArrayList<Place> myPlacesArray;
+    ArrayList<EventsClass> myPlacesArray;
 
     ProgressBar progressBar;
 
+    public void ListOfParticipantFragment(){
+
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -54,8 +53,8 @@ public class Gallery extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
 
-        getActivity().setTitle("Gallery");
-        View rootView = inflater.inflate(R.layout.content_gallery,container,false);
+        View rootView = inflater.inflate(R.layout.events_list,container,false);
+        progressBar = (ProgressBar)rootView.findViewById(R.id.progress_bar);
 
         return rootView;
     }
@@ -66,26 +65,34 @@ public class Gallery extends Fragment {
 
         FirebaseApp.initializeApp(getContext());
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = rootRef.child("data/events/event1/participants");
+        DatabaseReference ref = rootRef.child("data/events");
 
 
-        String[][] imageUrls = new String[5][10];
-
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView1 = (RecyclerView) view.findViewById(R.id.gallery_rv);
-        GalleryRecyclerAdapter galleryRecyclerAdapter = new GalleryRecyclerAdapter(getActivity(),imageUrls);
-        GridLayoutManager mLayoutManager1 = new GridLayoutManager(getApplicationContext(),1,GridLayoutManager.HORIZONTAL,false);
-        recyclerView1.setLayoutManager(mLayoutManager1);
-        //recyclerView1.setItemViewCacheSize(3);
-        recyclerView1.setItemAnimator(new DefaultItemAnimator());
-        recyclerView1.setAdapter(galleryRecyclerAdapter);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                myPlacesArray = new ArrayList<>();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    EventsClass eventsClass = dataSnapshot1.getValue(EventsClass.class);
+                    myPlacesArray.add(eventsClass);
+                }
 
 
+                Log.d("mylog", " Arraylist size is "+myPlacesArray.size());
+                ListView mListView = (ListView) view.findViewById(R.id.events_listview);
+                EventsAdapter mArrayAdapter = new EventsAdapter(getActivity(), R.layout.row, myPlacesArray);
+                mListView.setAdapter(mArrayAdapter);
 
+                progressBar.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
 }
-
-

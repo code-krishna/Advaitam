@@ -5,17 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ac.nita.advaitam4.Gallery"
-    tools:showIn="@layout/activity_gallery">
-
-
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/gallery_rv"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"/>
-
-
+        android:layout_height="match_parent" />
 </LinearLayout>

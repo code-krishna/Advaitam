@@ -90,7 +90,7 @@ public class DescriptionFragment extends Fragment {
         tv.setText("DATE: " + date);
 
         ImageView iv=view.findViewById(R.id.img);
-        int resID = getResources().getIdentifier(idName , "drawable", Events.PACKAGE_NAME);
+        int resID = getResources().getIdentifier(idName , "drawable", getContext().getPackageName());
         iv.setImageResource(resID);
 
         //return inflater.inflate(R.layout.fragment_description, container, false);

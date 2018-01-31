@@ -25,11 +25,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -112,6 +114,13 @@ public class Login extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         FirebaseApp.initializeApp(context);
+
+
+
+
+        ImageView bgHeader = (ImageView)findViewById(R.id.bgheader);
+        Glide.with(Login.this).load(R.drawable.advaitam_4_logo).into(bgHeader);
+
 
         preferences = getSharedPreferences("USER",0);
         editor = preferences.edit();
@@ -196,6 +205,32 @@ public class Login extends AppCompatActivity {
                 } else {
                     Toast.makeText(Login.this, "Passwords Don't Match",
                             Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        ImageButton fbLoginButton = (ImageButton)findViewById(R.id.fb_login_button);
+        ImageButton googleLoginButton = (ImageButton)findViewById(R.id.google_login_button);
+        fbLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFacebookBtn.performClick();
+            }
+        });
+
+        googleLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d("mylog", "onclick registeres");
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    signIn();
+                } else {
+
+
                 }
             }
         });

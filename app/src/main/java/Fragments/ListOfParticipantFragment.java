@@ -138,7 +138,7 @@ public class ListOfParticipantFragment extends Fragment {
                  //Place[] toArrayPlaces = new Place[myPlacesArray.size()];
                  //myPlacesArray.toArray(toArrayPlaces);
 
-                ListView mListView = (ListView) view.findViewById(R.id.myListView);
+                ListView mListView = (ListView) view.findViewById(R.id.events_listview);
                 PlaceArrayAdapter mArrayAdapter = new PlaceArrayAdapter(getActivity(), R.layout.row, myPlacesArray);
                 mListView.setAdapter(mArrayAdapter);
 

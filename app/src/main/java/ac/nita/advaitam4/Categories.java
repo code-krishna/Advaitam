@@ -144,6 +144,8 @@ public class Categories extends AppCompatActivity
                         .skipMemoryCache(true)
                         .placeholder(R.drawable.ic_account_circle_black_24dp)
                         .error(R.drawable.ic_account_circle_black_24dp);
+
+                if(profileImageUrl!=null)
                 Glide.with(Categories.this).load(profileImageUrl).apply(options).into(navImage);
 
                 mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {

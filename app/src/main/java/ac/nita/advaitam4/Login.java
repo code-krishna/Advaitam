@@ -1,7 +1,9 @@
 package ac.nita.advaitam4;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -16,12 +18,15 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +61,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
@@ -321,6 +329,7 @@ public class Login extends AppCompatActivity {
                 });
             }
         });
+
     }
 
 
@@ -337,9 +346,9 @@ public class Login extends AppCompatActivity {
                             startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         } else {
                             // If sign in fails, display a message to the user.
+                            handleAuthException(task);
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed." + task.getException(),
-                                    Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Login.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
@@ -369,9 +378,9 @@ public class Login extends AppCompatActivity {
 
                             } else {
                                 // If sign in fails, display a message to the user.
+                                handleAuthException(task);
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(Login.this, "Authentication failed." + task.getException(),
-                                        Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Login.this, "Authentication failed." + task.getException(),Toast.LENGTH_SHORT).show();
 
                             }
 
@@ -521,11 +530,43 @@ public class Login extends AppCompatActivity {
                             // signed in user can be handled in the listener.
                             if (!task.isSuccessful()) {
                                 Log.w(TAG, "signInWithCredential", task.getException());
-                                Toast.makeText(Login.this, "Authentication failed."+ task.getException(), Toast.LENGTH_SHORT).show();
+                                handleAuthException(task);
+                                //Toast.makeText(Login.this, "Authentication failed."+ task.getException(), Toast.LENGTH_SHORT).show();
                                 updateUI();
                             }
                         }
                     });
+
+    }
+
+
+    void handleAuthException(Task task){
+        try {
+            throw task.getException();
+        } catch(FirebaseAuthWeakPasswordException e) {
+          showDialogDox("Your Password is Too Weak, Please Try With A Longer Password!");
+        } catch(FirebaseAuthInvalidCredentialsException e) {
+           showDialogDox("The Credentials You Provided Are Incorrect Please Recheck Them.");
+        } catch(FirebaseAuthUserCollisionException e) {
+           showDialogDox("Looks Like The Same Email Has Been Registered With Other Methods Please Use That Method To Login");
+        } catch(Exception e) {
+           showDialogDox(""+task.getException());
+        }
+    }
+
+
+    public void showDialogDox(String message){
+       AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(message)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        Dialog alertDialog = builder.create();
+        //alertDialog.getWindow().setLayout(600,400);
+        alertDialog.show();
 
     }
 
@@ -546,9 +587,9 @@ public class Login extends AppCompatActivity {
                             updateUI();
                         } else {
                             // If sign in fails, display a message to the user.
+                            handleAuthException(task);
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed." + task.getException() ,
-                                    Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Login.this, "Authentication failed." + task.getException() , Toast.LENGTH_SHORT).show();
                             mFacebookBtn.setEnabled(true);
                         }
 

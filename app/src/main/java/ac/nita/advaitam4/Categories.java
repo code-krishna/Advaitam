@@ -201,24 +201,22 @@ public class Categories extends AppCompatActivity
 
         if ((name1.equals(" ") && enroll1.equals(" ") && cont1.equals(" "))) {
             profile = false;
-
         } else {
             profile = true;
         }
+
         progressDialog.dismiss();
         Log.d("checking", name1 + "   " + enroll1 + "   " + cont1 + "  " + profile);
 
         if (!profile) {
             Log.d("Profile Check ", " Entered   checking  cancellled ");
             Toast.makeText(getApplicationContext(), "Oops you didn't Completed Your Profile Yet !!", Toast.LENGTH_SHORT).show();
-            setFragment(new HomePart2());
+            setFragment(new History());
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_holder, new EditProfile()).addToBackStack("hii");
-
             ft.commit();
-
         } else {
-            setFragment(new HomePart2());
+            setFragment(new History());
         }
     }
 
@@ -279,7 +277,6 @@ public class Categories extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.categories, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView)item.getActionView();
@@ -294,7 +291,6 @@ public class Categories extends AppCompatActivity
             public boolean onQueryTextChange(String s) {
                 searchLV.setVisibility(View.VISIBLE);
                 arrayAdapter.getFilter().filter(s);
-
                 return false;
             }
         });

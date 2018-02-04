@@ -169,7 +169,7 @@ public class History extends Fragment {
     void setViewPager(View view){
         MyPageerAdapter myPageerAdapter = new MyPageerAdapter(getChildFragmentManager());
         viewPager = (ViewPager)view.findViewById(R.id.view_pager);
-        myPageerAdapter.addFragment(new HistoryTodaysEvents(),"Today's Events");
+        myPageerAdapter.addFragment(new HistoryAllEvents(),"All Events");
         myPageerAdapter.addFragment(new HistoryParticipatingEvents(),"Participating Events");
         myPageerAdapter.addFragment(new HistoryUpcomingEvents(),"Upcoming Events");
         viewPager.setAdapter(myPageerAdapter);

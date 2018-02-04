@@ -9,10 +9,12 @@ import java.io.Serializable;
  */
 
 @Keep
-public class EventsClass {
+public class EventsClass implements Comparable<EventsClass>{
     public String name;
     public String date;
     public String time;
+
+
 
     public EventsClass(){
 
@@ -23,6 +25,24 @@ public class EventsClass {
         this.name= name;
         this.time = time;
         this.date = date;
+    }
+
+    @Override
+    public int compareTo(EventsClass o) {
+        return getDate().compareTo(o.getDate());
+    }
+
+
+    public void setName(String name) {
+        name = name;
+    }
+
+    public void setDate(String date) {
+        date = date;
+    }
+
+    public void setTime(String time) {
+        time = time;
     }
 
 

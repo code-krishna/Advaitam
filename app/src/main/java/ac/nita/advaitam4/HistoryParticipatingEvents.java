@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import Fragments.EventsClass;
+import Fragments.EventsClassNew;
 import Fragments.Place;
 import ac.nita.advaitam4.R;
 
@@ -19,13 +19,20 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.TimeZone;
 
 
 /**
@@ -36,7 +43,7 @@ public class HistoryParticipatingEvents extends Fragment {
 
     Context context;
 
-    ArrayList<EventsClass> myPlacesArray;
+    ArrayList<EventsClassNew> myPlacesArray = new ArrayList<>();
 
     ProgressBar progressBar;
 
@@ -59,30 +66,26 @@ public class HistoryParticipatingEvents extends Fragment {
         return rootView;
     }
 
+    ListView mListView;
+
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mListView = (ListView) view.findViewById(R.id.events_listview);
         callFirebase(view);
 
     }
 
-
-    void callFirebase(final View view){
+    void callFirebase(final View view) {
         FirebaseApp.initializeApp(getContext());
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = rootRef.child("data/events/event1/participants");
+        DatabaseReference ref = rootRef.child("EVENTS_INFO");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                myPlacesArray = new ArrayList<>();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    EventsClass eventsClass = dataSnapshot1.getValue(EventsClass.class);
-                    //Log.d("mylog", place.getNameStudent()+place.getPhone()+place.getRoll()+" ");
-                    myPlacesArray.add(eventsClass);
-                }
-                ListView mListView = (ListView) view.findViewById(R.id.events_listview);
+                ArrayList<EventsClassNew> allEventClasses = getAllEvents(dataSnapshot);
+                callFirebaseForParticipatedEvents(view,dataSnapshot,allEventClasses);
             }
 
             @Override
@@ -92,6 +95,62 @@ public class HistoryParticipatingEvents extends Fragment {
         });
 
     }
+    void callFirebaseForParticipatedEvents(final View view,final DataSnapshot allEventsData,final ArrayList<EventsClassNew> allEventClasses) {
+        FirebaseApp.initializeApp(getContext());
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = rootRef.child("EVENTS_INFO").child(FirebaseAuth.getInstance().getUid()).child("PARTICIPATING_EVENTS");
 
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                 ArrayList<EventsClassNew> eventsClasses = new ArrayList<>();
+               for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                   String eventName = dataSnapshot1.getValue().toString();
+                   EventsClassNew eventsClass = getEventClass(eventName,allEventClasses);
+                   eventsClasses.add(eventsClass);
+               }
+                //eventsClasses = sortEvents(eventsClasses);
+                populateListView(view,eventsClasses);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    ArrayList<EventsClassNew> sortEvents(ArrayList<EventsClassNew> arrayList){
+        Collections.sort(arrayList);
+        return null;
+    }
+    void populateListView(View view,ArrayList<EventsClassNew> arrayList){
+        ListView mListView = (ListView) view.findViewById(R.id.events_listview);
+        EventsAdapter eventsAdapter = new EventsAdapter(getContext(),1,arrayList);
+        if(arrayList!=null && eventsAdapter!=null)
+        mListView.setAdapter(eventsAdapter);
+    }
+    ArrayList<EventsClassNew> getAllEvents(DataSnapshot dataSnapshot){
+
+        ArrayList<EventsClassNew> events = new ArrayList<>();
+
+        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+            for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                EventsClassNew eventsClass = dataSnapshot2.getValue(EventsClassNew.class);
+                if(eventsClass!=null)
+                events.add(eventsClass);
+            }
+        }
+
+        return events;
+    }
+    EventsClassNew getEventClass(String eventName, ArrayList<EventsClassNew> allEventClasses){
+        for(int i=0;i<allEventClasses.size();i++){
+            if(eventName.equals(allEventClasses.get(i).getName())){
+                return allEventClasses.get(i);
+            }
+        }
+        return null;
+    }
 }

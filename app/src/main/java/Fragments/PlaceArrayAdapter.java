@@ -10,22 +10,23 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import Info.items_for_list_of_participants;
 import ac.nita.advaitam4.R;
 
-class PlaceArrayAdapter extends ArrayAdapter<Place> {
+class PlaceArrayAdapter extends ArrayAdapter<items_for_list_of_participants> {
 
     Context mContext;
     int mLayoutResourceId;
-    ArrayList<Place> mData = new ArrayList<>();
+    ArrayList<items_for_list_of_participants> mData = new ArrayList<>();
 
-    public PlaceArrayAdapter(Context context, int row, ArrayList<Place> myPlacesArray) {
+    public PlaceArrayAdapter(Context context, int row, ArrayList<items_for_list_of_participants> myPlacesArray) {
         super(context, row, myPlacesArray);
         this.mContext = context;
         this.mLayoutResourceId = row;
         this.mData = myPlacesArray;
     }
     @Override
-    public Place getItem(int position)
+    public items_for_list_of_participants getItem(int position)
     {
         return super.getItem(position);
     }
@@ -46,10 +47,10 @@ class PlaceArrayAdapter extends ArrayAdapter<Place> {
         else {
             holder = (PlaceHolder) row.getTag();
         }
-        Place place = mData.get(position);
-        holder.nameView.setText(place.getNameStudent());
-        holder.enroll.setText(place.getRoll());
-        holder.phoneNo.setText(place.getPhone());
+        items_for_list_of_participants place = mData.get(position);
+        holder.nameView.setText(place.getName());
+        holder.enroll.setText(place.getEnroll());
+        holder.phoneNo.setText(place.getContact());
         return row;
     }
     private static class PlaceHolder {

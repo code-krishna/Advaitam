@@ -123,7 +123,7 @@ public class EditProfile extends Fragment {
 
             user_info user_data = new user_info(uid,name,enroll,number,uri.toString(),spinnerItem);
             Log.d("data" ,"" +user_data.getUid()+"  "+user_data.getName()+"  "+user_data.getContact()+"  "+user_data.getEnroll()+"  "+user_data.getDownload_uri() + user_data.getCollege());
-            mRef.child("USER").child(uid).setValue(user_data);
+            mRef.child("USER").child(uid+"/USER_INFO").setValue(user_data);
 //            Log.d("tag","msg "+user_data);
             updateProfile(name,uri);
             Log.d("user data" ,"msg "+ user_data.getName()+ user_data.getEnroll() + user_data.getContact() + spinnerItem);

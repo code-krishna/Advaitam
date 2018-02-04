@@ -16,7 +16,16 @@ public class user_info {
     private String uid;
     private String college;
     private String download_uri;
-    public Map<String, Boolean> stars = new HashMap<>();
+
+//    public Map<String, Boolean> getListOfEvents() {
+//        return ListOfEvents;
+//    }
+    private Map<String,String> listOfEvents = new HashMap<>();
+//    public void setListOfEvents(Map<String, Boolean> listOfEvents) {
+//        ListOfEvents = listOfEvents;
+//    }
+
+//    public Map<String, Boolean> ListOfEvents = new HashMap<>();
 
     public String getDownload_uri() {
         return download_uri;
@@ -26,13 +35,6 @@ public class user_info {
         this.download_uri = download_uri;
     }
 
-    public Map<String, Boolean> getStars() {
-        return stars;
-    }
-
-    public void setStars(Map<String, Boolean> stars) {
-        this.stars = stars;
-    }
 
     public user_info(String Download_uri ){
         this.download_uri = Download_uri;
@@ -75,12 +77,21 @@ public class user_info {
     }
 
 
-    public user_info(String uid, String name, String Enroll, String number,String uri){
+    public void setListOfEvents(Map<String, String> listOfEvents) {
+        this.listOfEvents = listOfEvents;
+    }
+
+    public user_info(String uid, String name, String Enroll, String number, String uri){
         this.download_uri = uri;
         this.name = name;
         this.enroll = Enroll;
         this.contact = number;
         this.uid = uid;
+
+    }
+    public user_info(HashMap<String ,String> list){
+        this.listOfEvents = list;
+
     }
 
     public String getCollege() {
@@ -91,6 +102,10 @@ public class user_info {
         this.college = college;
     }
 
+    public Map<String, String> getListOfEvents() {
+        return listOfEvents;
+    }
+
     public user_info(String uid, String name, String Enroll, String number, String uri, String college){
         this.download_uri = uri;
         this.college = college;
@@ -99,6 +114,7 @@ public class user_info {
         this.enroll = Enroll;
         this.contact = number;
         this.uid = uid;
+
     }
 
     @Exclude

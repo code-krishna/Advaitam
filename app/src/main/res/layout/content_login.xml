@@ -70,7 +70,7 @@
             android:drawableLeft="@drawable/ic_account_circle_black_24dp"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/ic_account_circle_black_24dp"
-            android:hint="Username"
+            android:hint="E-mail"
             android:textColor="@color/yellow" />
 
         <android.support.design.widget.TextInputEditText
@@ -180,7 +180,7 @@
             android:drawableLeft="@drawable/ic_account_circle_black_24dp"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/ic_account_circle_black_24dp"
-            android:hint="Username"
+            android:hint="E-mail"
             android:textColor="@color/yellow" />
 
         <android.support.design.widget.TextInputEditText

@@ -33,6 +33,7 @@ import java.util.TimerTask;
 import Adapters.ImageRecyclerViewAdapters;
 import Info.CulturalInfo;
 import Info.EventsData;
+import Info.items_for_list_of_participants;
 
 public class HomePart2 extends Fragment{
     private RecyclerView recyclerView1,recyclerView2,recyclerView3;
@@ -122,7 +123,7 @@ public class HomePart2 extends Fragment{
 
 
         EventsData[] info = {
-                new EventsData("AA-BB-CCCC", "TECHNICAL 1 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","" ,new HashMap<String, String>()  , "Technical Event 1", "HH:MM:SS")
+                new EventsData("AA-BB-CCCC", "TECHNICAL 1 EVENT DETAILS...\nDetails 123...\nDetails 456...\nDetails 789","" ,new HashMap<String, items_for_list_of_participants>()  , "Technical Event 1", "HH:MM:SS")
         };
         values1.add(info[0]);
         values2.add(info[0]);
@@ -139,16 +140,14 @@ public class HomePart2 extends Fragment{
         readData(new MyCallback() {
             @Override
             public void onCallback(List<EventsData> value,List<EventsData> value2,List<EventsData> value3) {
-
-
-                adapter1 = new ImageRecyclerViewAdapters(getActivity(),values1);
-                adapter2 = new ImageRecyclerViewAdapters(getActivity(),values2);
-                adapter3 = new ImageRecyclerViewAdapters(getActivity(),values3);
+                adapter1 = new ImageRecyclerViewAdapters(getActivity(),value,0);
+                adapter2 = new ImageRecyclerViewAdapters(getActivity(),value2,1);
+                adapter3 = new ImageRecyclerViewAdapters(getActivity(),value3,2);
                 llm1 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
                 llm2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
                 llm3 = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
 
-                Log.d("tag","myData4 "+ values1);
+//                Log.d("tag","myData4 "+ values1);
                 recyclerView1.setLayoutManager(llm1);
                 recyclerView2.setLayoutManager(llm2);
                 recyclerView3.setLayoutManager(llm3);
@@ -181,7 +180,7 @@ public class HomePart2 extends Fragment{
                     }
                 });
             } catch (Exception e){
-                Log.d("mylog","Error :: "+e.getMessage());
+//                Log.d("mylog","Error :: "+e.getMessage());
             }
         }
     }
@@ -190,7 +189,6 @@ public class HomePart2 extends Fragment{
     public void readData(final MyCallback myCallback) {
         mRef.child("EVENTS_INFO").addValueEventListener(new ValueEventListener() {
 
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -198,6 +196,9 @@ public class HomePart2 extends Fragment{
                 progressBar2.setVisibility(View.VISIBLE);
                 if (dataSnapshot.exists()) {
 //                    progressDialog.dismiss();
+                    values3.clear();
+                    values2.clear();
+                    values1.clear();
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.child("CULTURAL_INFO").getChildren()) {
                         EventsData p = dataSnapshot1.getValue(EventsData.class);
                         values1.add(p);
@@ -209,13 +210,40 @@ public class HomePart2 extends Fragment{
                         values3.add(dataSnapshot1.getValue(EventsData.class));
                     }
                     myCallback.onCallback(values1,values2,values3);
-                    Log.d("tag", "myData3 " + values1);
+//                    Log.d("tag", "myData3 " + values1);
                 }else{
                                                    }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        mRef.child("EVENTS_INFO").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

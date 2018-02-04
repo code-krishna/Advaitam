@@ -19,9 +19,34 @@ public class EventsData implements Parcelable {
     private String Date;
     private String Description;
     private String ImageUri;
-    private Map<String,String> ListOfParticipants = new HashMap<>();
+    private Map<String,items_for_list_of_participants> ListOfParticipants = new HashMap<>();
     private String Name;
     private String Time;
+
+    public static Creator<EventsData> getCREATOR() {
+        return CREATOR;
+    }
+
+    protected EventsData(Parcel in) {
+        Date = in.readString();
+        Description = in.readString();
+        ImageUri = in.readString();
+        Name = in.readString();
+        Time = in.readString();
+
+    }
+
+    public static final Creator<EventsData> CREATOR = new Creator<EventsData>() {
+        @Override
+        public EventsData createFromParcel(Parcel in) {
+            return new EventsData(in);
+        }
+
+        @Override
+        public EventsData[] newArray(int size) {
+            return new EventsData[size];
+        }
+    };
 
     public String getDescription() {
         return Description;
@@ -33,13 +58,15 @@ public class EventsData implements Parcelable {
         Description = description;
     }
 
-    public Map<String, String> getListOfParticipants() {
+    public Map<String, items_for_list_of_participants> getListOfParticipants() {
         return ListOfParticipants;
     }
 
-    public void setListOfParticipants(Map<String, String> listOfParticipants) {
+    public void setListOfParticipants(Map<String, items_for_list_of_participants> listOfParticipants) {
         ListOfParticipants = listOfParticipants;
     }
+
+
 
     public String getImageUri() {
         return ImageUri;
@@ -49,9 +76,9 @@ public class EventsData implements Parcelable {
         ImageUri = imageUri;
     }
 
-    public EventsData(String date, String desc, String Imagesuri, Map<String,String> parti , String name, String time) {
+    public EventsData(String date, String desc, String Imagesuri, Map<String,items_for_list_of_participants> parti , String name, String time) {
 
-         Map<String,String> list =new  HashMap<>();
+//         Map<String,items_for_list_of_participants> list = new  HashMap<>();
          this.Date = date;
          this.Description = desc;
          this.ImageUri = Imagesuri;
@@ -93,43 +120,13 @@ public class EventsData implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.Date);
-        dest.writeString(this.Description);
-        dest.writeString(this.ImageUri);
-        dest.writeInt(this.ListOfParticipants.size());
-        for (Map.Entry<String, String> entry : this.ListOfParticipants.entrySet()) {
-            dest.writeString(entry.getKey());
-            dest.writeString(entry.getValue());
-        }
-        dest.writeString(this.Name);
-        dest.writeString(this.Time);
+    public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeString(Date);
+        parcel.writeString(Description);
+        parcel.writeString(ImageUri);
+        parcel.writeString(Name);
+        parcel.writeString(Time);
     }
 
-    protected EventsData(Parcel in) {
-        this.Date = in.readString();
-        this.Description = in.readString();
-        this.ImageUri = in.readString();
-        int ListOfParticipantsSize = in.readInt();
-        this.ListOfParticipants = new HashMap<String, String>(ListOfParticipantsSize);
-        for (int i = 0; i < ListOfParticipantsSize; i++) {
-            String key = in.readString();
-            String value = in.readString();
-            this.ListOfParticipants.put(key, value);
-        }
-        this.Name = in.readString();
-        this.Time = in.readString();
-    }
-
-    public static final Creator<EventsData> CREATOR = new Creator<EventsData>() {
-        @Override
-        public EventsData createFromParcel(Parcel source) {
-            return new EventsData(source);
-        }
-
-        @Override
-        public EventsData[] newArray(int size) {
-            return new EventsData[size];
-        }
-    };
 }

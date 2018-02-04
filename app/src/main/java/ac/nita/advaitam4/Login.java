@@ -25,11 +25,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -112,6 +114,13 @@ public class Login extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         FirebaseApp.initializeApp(context);
+
+
+
+
+        ImageView bgHeader = (ImageView)findViewById(R.id.bgheader);
+        Glide.with(Login.this).load(R.drawable.advaitam_4_logo).into(bgHeader);
+
 
         preferences = getSharedPreferences("USER",0);
         editor = preferences.edit();
@@ -196,6 +205,32 @@ public class Login extends AppCompatActivity {
                 } else {
                     Toast.makeText(Login.this, "Passwords Don't Match",
                             Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        ImageButton fbLoginButton = (ImageButton)findViewById(R.id.fb_login_button);
+        ImageButton googleLoginButton = (ImageButton)findViewById(R.id.google_login_button);
+        fbLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFacebookBtn.performClick();
+            }
+        });
+
+        googleLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d("mylog", "onclick registeres");
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    signIn();
+                } else {
+
+
                 }
             }
         });
@@ -291,29 +326,29 @@ public class Login extends AppCompatActivity {
 
     public void signUp(final FirebaseAuth mAuth,String email,String password){
         try{
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed." + task.getException(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                startActivity(new Intent(Login.this,Categories.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(Login.this, "Authentication failed." + task.getException(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
 
-                        // ...
-                    }
-                });
-    } catch (Exception e) {
-        Toast.makeText(Login.this, "Error : "+e.getMessage(),
-                Toast.LENGTH_SHORT).show();
-    }
+                            // ...
+                        }
+                    });
+        } catch (Exception e) {
+            Toast.makeText(Login.this, "Error : "+e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void signIn(final FirebaseAuth mAuth,String email,String password){
@@ -353,12 +388,12 @@ public class Login extends AppCompatActivity {
     }
 
     private void updateUserProfilData() {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName("userName")
-                    .setPhotoUri(null)
-                    .build();
-            Log.d("profile Data" , "imageuri"   + imageuri);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName("userName")
+                .setPhotoUri(null)
+                .build();
+        Log.d("profile Data" , "imageuri"   + imageuri);
         if (user != null) {
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -474,23 +509,23 @@ public class Login extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
-            credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-            mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+        credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
-                                Log.w(TAG, "signInWithCredential", task.getException());
-                                Toast.makeText(Login.this, "Authentication failed."+ task.getException(), Toast.LENGTH_SHORT).show();
-                                updateUI();
-                            }
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(Login.this, "Authentication failed."+ task.getException(), Toast.LENGTH_SHORT).show();
+                            updateUI();
                         }
-                    });
+                    }
+                });
 
     }
 

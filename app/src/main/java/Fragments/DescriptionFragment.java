@@ -12,16 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import Info.CommonInfo;
-import Info.CulturalInfo;
-import Info.SportsInfo;
-import Info.TechnicalInfo;
 import ac.nita.advaitam4.Events;
 import ac.nita.advaitam4.MainActivity;
 import ac.nita.advaitam4.R;

@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import Fragments.EventsClass;
-import Fragments.Place;
-import ac.nita.advaitam4.R;
+import Info.EventsClass;
 
 import android.util.Log;
 import android.widget.ListView;

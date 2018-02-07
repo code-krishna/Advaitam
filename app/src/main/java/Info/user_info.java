@@ -20,7 +20,7 @@ public class user_info {
 //    public Map<String, Boolean> getListOfEvents() {
 //        return ListOfEvents;
 //    }
-    private Map<String,String> listOfEvents = new HashMap<>();
+    private Map<String,EventsClass> listOfEvents = new HashMap<>();
 //    public void setListOfEvents(Map<String, Boolean> listOfEvents) {
 //        ListOfEvents = listOfEvents;
 //    }
@@ -77,7 +77,7 @@ public class user_info {
     }
 
 
-    public void setListOfEvents(Map<String, String> listOfEvents) {
+    public void setListOfEvents(Map<String, EventsClass> listOfEvents) {
         this.listOfEvents = listOfEvents;
     }
 
@@ -89,7 +89,7 @@ public class user_info {
         this.uid = uid;
 
     }
-    public user_info(HashMap<String ,String> list){
+    public user_info(HashMap<String ,EventsClass> list){
         this.listOfEvents = list;
 
     }
@@ -102,7 +102,7 @@ public class user_info {
         this.college = college;
     }
 
-    public Map<String, String> getListOfEvents() {
+    public Map<String, EventsClass> getListOfEvents() {
         return listOfEvents;
     }
 

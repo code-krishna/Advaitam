@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import Info.EventsClass;
 import ac.nita.advaitam4.R;
 
 
@@ -73,7 +74,7 @@ public class HistoryTodaysEvents extends Fragment {
                     //Log.d("mylog", place.getNameStudent()+place.getPhone()+place.getRoll()+" ");
                     myPlacesArray.add(eventsClass);
                 }
-                ListView mListView = (ListView) view.findViewById(R.id.events_listview);
+                ListView mListView = (ListView) view.findViewById(R.id.todays_events_listview);
             }
 
             @Override

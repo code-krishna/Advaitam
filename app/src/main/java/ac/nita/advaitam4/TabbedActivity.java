@@ -42,11 +42,12 @@ import java.util.Map;
 import Fragments.DescriptionFragment;
 import Fragments.ListOfParticipantFragment;
 import Fragments.OrganisersFragment;
-import Fragments.Place;
+
 import Fragments.ResultsFragment;
-import Info.CommonInfo;
-import Info.CulturalInfo;
+
+import Info.EventsClass;
 import Info.EventsData;
+import Info.Place;
 import Info.items_for_list_of_participants;
 import Info.user_info;
 
@@ -168,11 +169,12 @@ public class  TabbedActivity extends AppCompatActivity {
                     }
                 });
 
-                Map<String,String> listt = new HashMap<>();
-                listt.put("events",data.getName());
-                user_info eventParticipated = new user_info((HashMap<String, String>) listt);
-               DatabaseReference ref = firebaseDatabase.getReference("USER/"+user.getUid()+"/PARTICIPATING_EVENTS");
-               ref.push().setValue(data.getName());
+                EventsClass data1 = new EventsClass(data.getName(),data.getDate(),data.getTime());
+                Map<String,EventsClass> listt = new HashMap<>();
+                listt.put("events",data1);
+                user_info eventParticipated = new user_info((HashMap<String, EventsClass>) listt);
+                DatabaseReference ref = firebaseDatabase.getReference("USER/"+user.getUid()+"/PARTICIPATING_EVENTS");
+                ref.push().setValue(listt);
             }
         });
 

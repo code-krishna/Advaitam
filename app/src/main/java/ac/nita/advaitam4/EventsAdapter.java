@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Fragments.EventsClass;
-import Fragments.Place;
-import ac.nita.advaitam4.R;
+import Adapters.EventsClassNew;
+import Info.EventsClass;
 
 /**
  * Created by HP on 12/29/2017.
@@ -27,7 +26,7 @@ class EventsAdapter extends ArrayAdapter<EventsClass> {
     public EventsAdapter(Context context, int row, ArrayList<EventsClass> myPlacesArray) {
         super(context, row, myPlacesArray);
         this.mContext = context;
-        this.mLayoutResourceId = row;
+        this.mLayoutResourceId = R.layout.row;
         this.mData = myPlacesArray;
     }
     @Override
@@ -44,7 +43,7 @@ class EventsAdapter extends ArrayAdapter<EventsClass> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             row = inflater.inflate(mLayoutResourceId,parent,false);
             holder = new PlaceHolder();
-            holder.eventName = (TextView) row.findViewById(ac.nita.advaitam4.R.id.rowTextView);
+            holder.eventName = (TextView) row.findViewById(R.id.rowTextView);
             holder.date = (TextView) row.findViewById(R.id.rowSmallTextView);
             holder.time = (TextView) row.findViewById(R.id.rowSmallTextView1);
             holder.iv = (ImageView) row.findViewById(R.id.rowImageView);

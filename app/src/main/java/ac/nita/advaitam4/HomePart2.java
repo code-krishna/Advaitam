@@ -1,15 +1,12 @@
 package ac.nita.advaitam4;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +28,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Adapters.ImageRecyclerViewAdapters;
-import Info.CulturalInfo;
 import Info.EventsData;
 import Info.items_for_list_of_participants;
 

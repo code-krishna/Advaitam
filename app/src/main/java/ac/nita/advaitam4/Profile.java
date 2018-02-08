@@ -102,11 +102,11 @@ public class Profile extends Fragment {
                 .into(img1);
         mProgressDialog.dismiss();
 
-        mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
+        mRef.child("USER/").child(uid+"/USER_INFO").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    Log.d("valueName:", "DATA : "+ dataSnapshot);
+//                    Log.d("valueName:", "DATA : "+ dataSnapshot);
                     editor.putString("NAME",(String)dataSnapshot.child("name").getValue()).apply();
                     editor.putString("CONTACT",(String)dataSnapshot.child("contact").getValue()).apply();
                     editor.putString("ENROLL",(String)dataSnapshot.child("enroll").getValue()).apply();
@@ -118,7 +118,7 @@ public class Profile extends Fragment {
             }
         });
 
-        Log.d("valueName:", "DATA : "+preferences.getString("NAME","My Name")+preferences.getString("ENROLL","EnrollMent")+preferences.getString("CONTACT","Contact")+preferences.getString("COLLEGE","COLLEGE"));
+//        Log.d("valueName:", "DATA : "+preferences.getString("NAME","My Name")+preferences.getString("ENROLL","EnrollMent")+preferences.getString("CONTACT","Contact")+preferences.getString("COLLEGE","COLLEGE"));
         storage = FirebaseStorage.getInstance();
         sRef = storage.getReference();
         return rootView;

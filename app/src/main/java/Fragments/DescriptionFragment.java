@@ -10,17 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import Info.CommonInfo;
-import Info.CulturalInfo;
-import Info.SportsInfo;
-import Info.TechnicalInfo;
 import ac.nita.advaitam4.Events;
 import ac.nita.advaitam4.MainActivity;
 import ac.nita.advaitam4.R;
@@ -36,7 +28,7 @@ public class DescriptionFragment extends Fragment {
     private String date;
     private String time;
 
-    String idName;
+    String idName="hii";
 
     public DescriptionFragment() {
     }
@@ -49,38 +41,18 @@ public class DescriptionFragment extends Fragment {
 	* 3. Return the rootView
 	* */
 
-        idName=getArguments().getString("KEY");
-        Log.d("mylog","Idname "+idName);
+//	    Bundle data = getArguments().getBundle("Key");
+	    desc = getArguments().getString("DESC");
+        date = getArguments().getString("DATE");
+        name = getArguments().getString("NAME");
+        time = getArguments().getString("TIME");
+
+//        Toast.makeText(getContext(),desc,Toast.LENGTH_SHORT).show();
+
+//        idName=getArguments().getBundle("Key");
+//        Log.d("mylog","Idname "+idName);
         View view=inflater.inflate(R.layout.fragment_description, container, false);
-
-        char EventType=idName.charAt(0);
-        int EventId=Character.getNumericValue(idName.charAt(idName.length()-1));
-
-        /*
-        if(EventType=='s'){
-            desc= SportsInfo.sInfo[EventId-1].getDesc();
-            name= SportsInfo.sInfo[EventId-1].getName();
-            date= SportsInfo.sInfo[EventId-1].getDate();
-            time= SportsInfo.sInfo[EventId-1].getTime();
-        }
-        else if(EventType=='c'){
-            desc= CulturalInfo.cInfo[EventId-1].getDesc();
-            name= CulturalInfo.cInfo[EventId-1].getName();
-            date= CulturalInfo.cInfo[EventId-1].getDate();
-            time= CulturalInfo.cInfo[EventId-1].getTime();
-        }
-        else if(EventType=='t'){
-            desc= TechnicalInfo.tInfo[EventId-1].getDesc();
-            name= TechnicalInfo.tInfo[EventId-1].getName();
-            date= TechnicalInfo.tInfo[EventId-1].getDate();
-            time= TechnicalInfo.tInfo[EventId-1].getTime();
-        }
-
-*/
-
-
-
-        TextView tv=(TextView)view.findViewById(R.id.name);
+         TextView tv=(TextView)view.findViewById(R.id.name);
         tv.setText("EVENT NAME: " + name);
         tv=(TextView)view.findViewById(R.id.desc);
         tv.setText(desc);
@@ -104,46 +76,46 @@ public class DescriptionFragment extends Fragment {
 
         final View view = v;
 
-        idName="event123";
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("data/events/"+idName);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-
-
-
-                    CommonInfo commonInfo = dataSnapshot.getValue(CommonInfo.class);
-                    desc= commonInfo.getDesc();
-                    name= commonInfo.getName();
-                    date= commonInfo.getDate();
-                    time= commonInfo.getTime();
-
-                    Log.d("mylog","Strings "+desc+name+date+time);
-
-                    TextView tv=(TextView)view.findViewById(R.id.name);
-                    tv.setText("EVENT NAME: \n" + name);
-                    tv=(TextView)view.findViewById(R.id.desc);
-                    tv.setText(desc);
-                    tv=(TextView)view.findViewById(R.id.time);
-                    tv.setText("TIME: " + time);
-                    tv=(TextView)view.findViewById(R.id.date);
-                    tv.setText("DATE: " + date);
-
-
-
-                } catch (Exception e){
-                    e=e;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+//        idName="event123";
+//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = firebaseDatabase.getReference("data/events/"+idName);
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                try {
+//
+//
+//
+//                    CommonInfo commonInfo = dataSnapshot.getValue(CommonInfo.class);
+//                    desc= commonInfo.getDesc();
+//                    name= commonInfo.getName();
+//                    date= commonInfo.getDate();
+//                    time= commonInfo.getTime();
+//
+//                    Log.d("mylog","Strings "+desc+name+date+time);
+//
+//                    TextView tv=(TextView)view.findViewById(R.id.name);
+//                    tv.setText("EVENT NAME: \n" + name);
+//                    tv=(TextView)view.findViewById(R.id.desc);
+//                    tv.setText(desc);
+//                    tv=(TextView)view.findViewById(R.id.time);
+//                    tv.setText("TIME: " + time);
+//                    tv=(TextView)view.findViewById(R.id.date);
+//                    tv.setText("DATE: " + date);
+//
+//
+//
+//                } catch (Exception e){
+//                    e=e;
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
 
 
     }

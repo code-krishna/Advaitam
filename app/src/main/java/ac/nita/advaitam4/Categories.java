@@ -119,104 +119,91 @@ public class Categories extends AppCompatActivity
         searchLV = (ListView)findViewById(R.id.search_list_view);
         arrayAdapter = new Adapters.SearchListAdapter(Categories.this,searchArrayList);
         searchLV.setAdapter(arrayAdapter);
-
+        progressDialog = new ProgressDialog(Categories.this);
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                progressDialog.setMessage("Wait ! While data is Uploading....");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-                TextView navUsername = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
-                TextView navEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_email);
-                user = firebaseAuth.getCurrentUser();
-                if(user==null)
-                    return;
-                uid = user.getUid();
-                navUsername.setText(user.getDisplayName());
-                navEmail.setText(user.getEmail());
-                if (user.getPhotoUrl() != null)
-                    profileImageUrl = user.getPhotoUrl().toString();
-                ImageView navImage = navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
-                RequestOptions options = new RequestOptions()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .skipMemoryCache(true)
-                        .placeholder(R.drawable.ic_account_circle_black_24dp)
-                        .error(R.drawable.ic_account_circle_black_24dp);
+        TextView navUsername = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+        TextView navEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_email);
+        user = firebaseAuth.getCurrentUser();
+        if(user==null)
+            return;
+        uid = user.getUid();
+        navUsername.setText(user.getDisplayName());
+        navEmail.setText(user.getEmail());
 
-                if(profileImageUrl!=null)
-                Glide.with(Categories.this).load(profileImageUrl).apply(options).into(navImage);
+        if (user.getPhotoUrl() != null)
+            profileImageUrl = user.getPhotoUrl().toString();
+        else{
 
-                mRef.child("USER").child(uid).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            progressDialog.setCancelable(true);
-                            progressDialog.dismiss();
-                            Log.d("valueName:", "DATA : " + dataSnapshot);
-                            editor.putString("NAME", (String) dataSnapshot.child("name").getValue()).apply();
-                            editor.putString("CONTACT", (String) dataSnapshot.child("contact").getValue()).apply();
-                            editor.putString("ENROLL", (String) dataSnapshot.child("enroll").getValue()).apply();
-                            editor.putString("COLLEGE", (String) dataSnapshot.child("college").getValue()).apply();
-                            editor.putString("ProfileImage_path", (String) dataSnapshot.child("download_uri").getValue()).apply();
-                            updateProfile(sharedPreferences.getString("NAME", " "), sharedPreferences.getString("ProfileImage_path", " "));
-                            Log.d("dataSnapshot", dataSnapshot.toString());
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        profile = true;
-                        startActivity(new Intent(Categories.this, Categories.class));
-                        Log.d("Profile Check ", "   checking  cancellled " + databaseError.toString());
-                    }
-                });
+        }
+
+
+
+        ImageView navImage = navigationView.getHeaderView(0).findViewById(R.id.nav_image_view);
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .placeholder(R.drawable.ic_account_circle_black_24dp)
+                .error(R.drawable.ic_account_circle_black_24dp);
+        Glide.with(Categories.this).load(profileImageUrl).apply(options).into(navImage);
+
+
+        mRef.child("USER/").child(uid+"/USER_INFO").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d("valueName:", "DATA : " + dataSnapshot);
+                    editor.putString("NAME", (String) dataSnapshot.child("name").getValue()).apply();
+                    editor.putString("CONTACT", (String) dataSnapshot.child("contact").getValue()).apply();
+                    editor.putString("ENROLL", (String) dataSnapshot.child("enroll").getValue()).apply();
+                    editor.putString("COLLEGE", (String) dataSnapshot.child("college").getValue()).apply();
+                    editor.putString("ProfileImage_path", (String) dataSnapshot.child("download_uri").getValue()).apply();
+                    updateProfile(sharedPreferences.getString("NAME", " "), sharedPreferences.getString("ProfileImage_path", " "));
+                    Log.d("dataSnapshot", dataSnapshot.toString());
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                profile = true;
+                startActivity(new Intent(Categories.this, Categories.class));
+                Log.d("Profile Check ", "   checking  cancellled " + databaseError.toString());
             }
         });
+    }});
 
-
-        progressDialog = new ProgressDialog(Categories.this);
         navigationView.setNavigationItemSelectedListener(this);
         sharedPreferences = this.getSharedPreferences("USER", 0);
         editor = sharedPreferences.edit();
-
-        //String profileImageUrl = user.getPhotoUrl().toString();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         callbackManager = CallbackManager.Factory.create();
-
-        progressDialog.setMessage("Profile is Updating");
-        progressDialog.show();
-
-
         name1 = sharedPreferences.getString("NAME", " ");
         enroll1 = sharedPreferences.getString("ENROLL", " ");
         cont1 = sharedPreferences.getString("CONTACT", " ");
 
 
         if ((name1.equals(" ") && enroll1.equals(" ") && cont1.equals(" "))) {
-            profile = false;
-        } else {
             profile = true;
+
+        } else {
+            profile = false;
         }
 
-        progressDialog.dismiss();
-        Log.d("checking", name1 + "   " + enroll1 + "   " + cont1 + "  " + profile);
 
-        if (!profile) {
+//        Log.d("checking", name1 + "   " + enroll1 + "   " + cont1 + "  " + profile);
+        setFragment(new HomePart2());
+        if (profile) {
             Log.d("Profile Check ", " Entered   checking  cancellled ");
             Toast.makeText(getApplicationContext(), "Oops you didn't Completed Your Profile Yet !!", Toast.LENGTH_SHORT).show();
-            setFragment(new History());
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_holder, new EditProfile()).addToBackStack("hii");
             ft.commit();
-        } else {
-            setFragment(new History());
         }
     }
 
@@ -277,6 +264,7 @@ public class Categories extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.categories, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView)item.getActionView();
@@ -291,6 +279,7 @@ public class Categories extends AppCompatActivity
             public boolean onQueryTextChange(String s) {
                 searchLV.setVisibility(View.VISIBLE);
                 arrayAdapter.getFilter().filter(s);
+
                 return false;
             }
         });
@@ -328,7 +317,7 @@ public class Categories extends AppCompatActivity
             editor.putString("ENROLL"," ").apply();
             editor.putString("ProfileImage_path"," ").apply();
             editor.putString("COLLEGE"," ").apply();
-            startActivity(new Intent(Categories.this,SplashScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(Categories.this,SplashScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
         }
 

@@ -27,6 +27,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import Fragments.HistoryParticipatingEvents;
+import Fragments.HistoryTodaysEvents;
+import Fragments.HistoryUpcomingEvents;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -158,7 +162,7 @@ public class History extends Fragment {
         getActivity().setTitle("History");
 
 
-       setViewPager(view);
+        setViewPager(view);
 
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -169,7 +173,7 @@ public class History extends Fragment {
     void setViewPager(View view){
         MyPageerAdapter myPageerAdapter = new MyPageerAdapter(getChildFragmentManager());
         viewPager = (ViewPager)view.findViewById(R.id.view_pager);
-        myPageerAdapter.addFragment(new HistoryAllEvents(),"All Events");
+        myPageerAdapter.addFragment(new HistoryTodaysEvents(),"Today's Events");
         myPageerAdapter.addFragment(new HistoryParticipatingEvents(),"Participating Events");
         myPageerAdapter.addFragment(new HistoryUpcomingEvents(),"Upcoming Events");
         viewPager.setAdapter(myPageerAdapter);

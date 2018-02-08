@@ -37,18 +37,20 @@ public class ImageRecyclerViewAdapters extends RecyclerView.Adapter<ImageRecycle
     private Integer[] imagesPosition = {R.drawable.gate, R.drawable.dj, R.drawable.cultural, R.drawable.robot, R.drawable.sports};
     private List<Uri> imagesPosition1 = new ArrayList<>();
     Context mContext;
+    int event_pos;
 
     int position = 0;
 
-    public ImageRecyclerViewAdapters(Context context, List<EventsData> eventsData) {
+    public ImageRecyclerViewAdapters(Context context, List<EventsData> eventsData,int event_pos) {
         this.mContext = context;
         this.eventsData = eventsData;
+        this.event_pos = event_pos;
         if (eventsData != null) {
             for (EventsData op : eventsData) {
-                imagesPosition1.add(Uri.parse(op.getImageUri()));
+                   imagesPosition1.add(Uri.parse(op.getImageUri()));
             }
         }
-        Log.d("tag", "myTag " + imagesPosition1.size());
+//        Log.d("tag", "myTag " + imagesPosition1.size());
 
     }
 
@@ -71,12 +73,12 @@ public class ImageRecyclerViewAdapters extends RecyclerView.Adapter<ImageRecycle
                 .error(R.drawable.background);
         Glide.with(mContext).load(imagesPosition1.get(position)).apply(options).into(holder.images);
 
-        Log.d("tag", "myTag " + imagesPosition1.get(position));
+//        Log.d("tag", "myTag " + imagesPosition1.get(position));
 }
 
     @Override
     public int getItemCount() {
-        Log.d("tag", "myTag " + imagesPosition1.size());
+//        Log.d("tag", "myTag " + imagesPosition1.size());
         return imagesPosition1.size();
     }
 
@@ -98,7 +100,10 @@ public class ImageRecyclerViewAdapters extends RecyclerView.Adapter<ImageRecycle
                 public void onClick(View view) {
                     //Toast.makeText(mContext, "clicked " + eventsData.get(getAdapterPosition()).getDescription(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(mContext, TabbedActivity.class);
+//                    intent.putExtra("object",)
                     intent.putExtra("object",eventsData.get(getAdapterPosition()));
+                    intent.putExtra("reference",getAdapterPosition());
+                    intent.putExtra("eventPos",event_pos);
                     intent.putExtra("KEY",mContext.getResources().getResourceEntryName(view.getId()));
                     mContext.startActivity(intent);
 

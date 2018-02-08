@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import Fragments.EventsClassNew;
-import Fragments.Place;
-import ac.nita.advaitam4.R;
+import Info.EventsClass;
 
 import android.util.Log;
 import android.widget.ListView;
@@ -36,7 +34,7 @@ public class EventsList extends Fragment {
 
     Context context;
 
-    ArrayList<EventsClassNew> myPlacesArray;
+    ArrayList<EventsClass> myPlacesArray;
 
     ProgressBar progressBar;
 
@@ -73,7 +71,7 @@ public class EventsList extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 myPlacesArray = new ArrayList<>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    EventsClassNew eventsClass = dataSnapshot1.getValue(EventsClassNew.class);
+                    EventsClass eventsClass = dataSnapshot1.getValue(EventsClass.class);
                     myPlacesArray.add(eventsClass);
                 }
 

@@ -36,15 +36,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 import Fragments.DescriptionFragment;
 import Fragments.ListOfParticipantFragment;
 import Fragments.OrganisersFragment;
-import Fragments.Place;
+
 import Fragments.ResultsFragment;
-import Info.CommonInfo;
+
+import Info.EventsClass;
 import Info.EventsData;
+import Info.Place;
+import Info.items_for_list_of_participants;
+import Info.user_info;
+
 
 public class  TabbedActivity extends AppCompatActivity {
 
@@ -61,11 +67,17 @@ public class  TabbedActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-
+    private String event_name;
     private EventsData data;
     private ViewPager mViewPager;
+    private int position;
     private CharSequence[] titles={"Info","Organisers","Results","Participants"};
     private boolean flag;
+    private int event_pos;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private String add1;
+    private Map<String,items_for_list_of_participants> itemsData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,10 +87,13 @@ public class  TabbedActivity extends AppCompatActivity {
 
         Bundle bundle=getIntent().getExtras();
         final String idName = bundle.getString("KEY");
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         data = bundle.getParcelable("object");
-
+        position = bundle.getInt("reference")+1;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        event_pos = bundle.getInt("eventPos");
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -86,15 +101,30 @@ public class  TabbedActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("USER",0);
         flag = sharedPreferences.getBoolean("FLAG", false);
 
+        itemsData = new HashMap<>();
         // Set up the ViewPager with the sections adapter.
         //mViewPager = (ViewPager) findViewById(R.id.viewpager);
         //mViewPager.setAdapter(mSectionsPagerAdapter);
 //        Intent intent = new Intent();
-//        EventsData data = (EventsData)this.getIntent().getSerializableExtra("object");
+//        data = (EventsData)this.getIntent().getSerializableExtra("object");
         // b = intent.getBundleExtra("bundle");
-        //if(data != null)
-            //Toast.makeText(getApplicationContext(),data.toString(),Toast.LENGTH_SHORT).show();
-          //  Log.d("myTag1",data.getName());
+//        if(data != null)
+//            Toast.makeText(getApplicationContext(),data.toString(),Toast.LENGTH_SHORT).show();
+//            Log.d("myTag1",);
+
+        switch(event_pos){
+            case 1:
+                event_name = "CULTURAL_INFO/cultural";
+                break;
+            case 2:
+                event_name = "SPORTS_INFO/sports";
+                break;
+            case 0:
+                event_name = "TECHNICAL_INFO/technical";
+                break;
+            default:
+                break;
+        }
 
 
 
@@ -114,26 +144,43 @@ public class  TabbedActivity extends AppCompatActivity {
         final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
 
+        final items_for_list_of_participants items = new items_for_list_of_participants(sharedPreferences.getString("NAME", "NAME"),sharedPreferences.getString("ENROLL", "ENROLL"), sharedPreferences.getString("CONTACT", "CONTACT"));
+        final String add = "EVENTS_INFO/"+event_name+ position+"/ListOfParticipants/"+user.getUid()+"/";
+        add1 = "EVENTS_INFO/"+event_name+ position+"/ListOfParticipants/";
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 progressBar.setVisibility(View.VISIBLE);
-                DatabaseReference eventReference = firebaseDatabase.getReference("data/events/"+"event123"+"/participants/"+user.getUid());
-                eventReference.setValue(new Place(sharedPreferences.getString("NAME", "NAME"), sharedPreferences.getString("ENROLL", "ENROLL"), sharedPreferences.getString("CONTACT", "CONTACT")), new DatabaseReference.CompletionListener() {
-                    @Override
+                DatabaseReference eventReference = firebaseDatabase.getReference(add);
+                eventReference.setValue(items, new DatabaseReference.CompletionListener() {;
+//                eventReference.push().setValue(new Place(sharedPreferences.getString("NAME", "NAME"), sharedPreferences.getString("ENROLL", "ENROLL"), sharedPreferences.getString("CONTACT", "CONTACT")), new DatabaseReference.CompletionListener() {
+////
+                @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         progressBar.setVisibility(View.GONE);
                         if(databaseError==null){
-                            showDialogDox("You Have Been Successfully Registered.");
+                            Toast.makeText(getApplicationContext(),"Registered",Toast.LENGTH_LONG).show();
+//                            showDialogDox("You Have Been Successfully Registered.");
                         } else {
-                            showDialogDox("Sorry There Was A Problem With Your Registration.");
+//                            showDialogDox("Sorry There Was A Problem With Your Registration.");
                         }
                     }
                 });
+
+                EventsClass data1 = new EventsClass(data.getName(),data.getDate(),data.getTime());
+                Map<String,EventsClass> listt = new HashMap<>();
+                listt.put("events",data1);
+                user_info eventParticipated = new user_info((HashMap<String, EventsClass>) listt);
+                DatabaseReference ref = firebaseDatabase.getReference("USER/"+user.getUid()+"/PARTICIPATING_EVENTS");
+                ref.push().setValue(listt);
             }
         });
+
+
+
+
 
     }
 
@@ -237,14 +284,6 @@ public class  TabbedActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-//            switch (position) {
-//                case 0:
-//                    return "Info";
-//                case 1:
-//                    return "Organisers";
-//                case 2:
-//                    return "Results";
-//            }
             if (flag) {
                 switch (position) {
                     case 0:
@@ -303,7 +342,7 @@ public class  TabbedActivity extends AppCompatActivity {
             {
                 OrganisersFragment organisersFragment = new OrganisersFragment();
                 Bundle bundle1 = new Bundle();
-                bundle1.putString("KEY2",idName);
+                bundle1.putString("KEY2",add1);
                 organisersFragment.setArguments(bundle1);
                 return new OrganisersFragment();
             }
@@ -311,16 +350,16 @@ public class  TabbedActivity extends AppCompatActivity {
             {
                 ResultsFragment result = new ResultsFragment();
                 Bundle bundle2 = new Bundle();
-                bundle2.putString("KEY3",idName);
+                bundle2.putString("KEY3",add1);
                 result.setArguments(bundle2);
                 return new ResultsFragment();
             }else{
                 ListOfParticipantFragment listOfParticipantFragment = new ListOfParticipantFragment();
                 Bundle bundle3 = new Bundle();
-                bundle3.putSerializable("K", (Serializable) data.getListOfParticipants());
-                Log.d("TAG",bundle3.getSerializable("K").toString());
+                Log.d("TAG",itemsData.toString());
+                bundle3.putString("K",add1);
                 listOfParticipantFragment.setArguments(bundle3);
-                return new ListOfParticipantFragment();
+                return listOfParticipantFragment;
             }
 
 
@@ -332,7 +371,6 @@ public class  TabbedActivity extends AppCompatActivity {
         }
 
         @Override public int getCount() {
-//        return 3; // no. of fragments –can use a final int for this.
             if(flag)
                 return 4; // no. of fragments –can use a final int for this.
             else

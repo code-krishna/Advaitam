@@ -10,28 +10,27 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Fragments.EventsClassNew;
-import Fragments.Place;
-import ac.nita.advaitam4.R;
+import Adapters.EventsClassNew;
+import Info.EventsClass;
 
 /**
  * Created by HP on 12/29/2017.
  */
 
-class EventsAdapter extends ArrayAdapter<EventsClassNew> {
+class EventsAdapter extends ArrayAdapter<EventsClass> {
 
     Context mContext;
     int mLayoutResourceId;
-    ArrayList<EventsClassNew> mData = new ArrayList<>();
+    ArrayList<EventsClass> mData = new ArrayList<>();
 
-    public EventsAdapter(Context context, int row, ArrayList<EventsClassNew> myPlacesArray) {
+    public EventsAdapter(Context context, int row, ArrayList<EventsClass> myPlacesArray) {
         super(context, row, myPlacesArray);
         this.mContext = context;
         this.mLayoutResourceId = R.layout.row;
         this.mData = myPlacesArray;
     }
     @Override
-    public EventsClassNew getItem(int position)
+    public EventsClass getItem(int position)
     {
         return super.getItem(position);
     }
@@ -44,7 +43,7 @@ class EventsAdapter extends ArrayAdapter<EventsClassNew> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             row = inflater.inflate(mLayoutResourceId,parent,false);
             holder = new PlaceHolder();
-            holder.eventName = (TextView) row.findViewById(ac.nita.advaitam4.R.id.rowTextView);
+            holder.eventName = (TextView) row.findViewById(R.id.rowTextView);
             holder.date = (TextView) row.findViewById(R.id.rowSmallTextView);
             holder.time = (TextView) row.findViewById(R.id.rowSmallTextView1);
             holder.iv = (ImageView) row.findViewById(R.id.rowImageView);
@@ -52,7 +51,7 @@ class EventsAdapter extends ArrayAdapter<EventsClassNew> {
         else {
             holder = (PlaceHolder) row.getTag();
         }
-        EventsClassNew eventsClass = mData.get(position);
+        EventsClass eventsClass = mData.get(position);
         holder.eventName.setText(eventsClass.getName());
         holder.date.setText(eventsClass.getDate());
         holder.time.setText(eventsClass.getTime());

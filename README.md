@@ -74,7 +74,7 @@ We welcome contributions to improve the Advaitam Event App. To contribute:
 	6. Open a pull request. 
 
 ### Acknowledgments
-	•	NIT Agartala for organizing the Techno-Cultural Fest.
-	•	Android Studio for providing a platform to build and run Android applications.
+	• NIT Agartala for organizing the Techno-Cultural Fest.
+	• Android Studio for providing a platform to build and run Android applications.
 
 For more information or if you have any questions, feel free to contact the project maintainers.

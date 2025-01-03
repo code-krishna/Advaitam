@@ -46,7 +46,7 @@ Once the project is loaded in Android Studio, make sure to sync the project with
 ### The app should now be running on your device/emulator.
 
 Folder Structure
-
+```
 Advaitam-Event-App/
 │
 ├── app/                  # Main app source code
@@ -60,19 +60,18 @@ Advaitam-Event-App/
 ├── gradle/               # Gradle wrapper files
 ├── build.gradle          # Project-level Gradle file
 └── settings.gradle       # Settings for project configuration
-
-Contributing
+```
+### Contributing
 
 We welcome contributions to improve the Advaitam Event App. To contribute:
-	1.	Fork the repository.
-	2.	Create a new branch (git checkout -b feature/your-feature-name).
-	3.	Make your changes.
-	4.	Commit your changes (git commit -m 'Add some feature').
-	5.	Push to the branch (git push origin feature/your-feature-name).
-	6.	Open a pull request.
- 
+	1. Fork the repository.
+	2. Create a new branch (git checkout -b feature/your-feature-name).
+	3. Make your changes.
+	4. Commit your changes (git commit -m 'Add some feature').
+	5. Push to the branch (git push origin feature/your-feature-name).
+	6. Open a pull request. 
 
-Acknowledgments
+### Acknowledgments
 	•	NIT Agartala for organizing the Techno-Cultural Fest.
 	•	Android Studio for providing a platform to build and run Android applications.
 

@@ -30,18 +30,18 @@ Start by cloning the repository to your local machine:
 git clone https://github.com/code-krishna/Advaitam.git
 ```
 ### 2. Open Project in Android Studio:
-	1.	Launch Android Studio.
-	2.	Open the cloned project by selecting Open an existing project.
-	3.	Navigate to the project folder and select it.
+	1. Launch Android Studio.
+	2. Open the cloned project by selecting Open an existing project.
+	3. Navigate to the project folder and select it.
 
 ### 3. Set Up Dependencies
 
 Once the project is loaded in Android Studio, make sure to sync the project with Gradle:
-	•	Click Sync Now when prompted or go to File > Sync Project with Gradle Files.
+	• Click Sync Now when prompted or go to File > Sync Project with Gradle Files.
 
 ### 4. Run the App
-	•	Connect your Android device or use the Android Emulator.
-	•	Click the Run button (green play icon) in Android Studio.
+	• Connect your Android device or use the Android Emulator.
+	• Click the Run button (green play icon) in Android Studio.
 
 ### The app should now be running on your device/emulator.
 

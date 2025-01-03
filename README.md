@@ -2,6 +2,8 @@
 
 Advaitam Event App is an Android application designed for the **Techno-Cultural Fest of NIT Agartala**. The app provides all the necessary information and updates about the various events in the festival, allowing participants to stay updated and manage their event schedules easily.
 
+![App Banner](app/src/main/res/drawable/app_logo.jpg)
+
 ## Features
 
 - **Event List**: Browse through all the events happening during the fest.
